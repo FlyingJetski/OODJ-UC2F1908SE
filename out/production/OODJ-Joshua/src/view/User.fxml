@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="638.0" prefWidth="1038.0" stylesheets="/view/Content.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UserController">
+  <children>
+    <BorderPane layoutY="0.0" prefHeight="537.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <top>
+        <VBox prefHeight="50.0" prefWidth="600.0">
+          <children>
+            <HBox id="titleBar" prefHeight="50.0" prefWidth="200.0">
+              <children>
+                <Label text="User">
+                  <font>
+                    <Font size="20.0" />
+                  </font>
+                </Label>
+              </children>
+              <padding>
+                <Insets left="10.0" top="10.0" />
+              </padding>
+            </HBox>
+          </children>
+        </VBox>
+      </top>
+         <bottom>
+            <AnchorPane id="bottomBar" prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
+         </bottom>
+         <right>
+            <AnchorPane fx:id="actionBar" prefHeight="502.0" prefWidth="450.0" BorderPane.alignment="CENTER">
+               <children>
+                  <AnchorPane fx:id="addUserPane" layoutX="440.0" layoutY="30.0" prefHeight="502.0" prefWidth="350.0" styleClass="actionPane" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="-350.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <content>
+                              <HBox prefHeight="500.0" prefWidth="298.0">
+                                 <children>
+                                    <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="125.0" spacing="10.0">
+                                       <children>
+                                          <Label prefHeight="25.0" text="Username:" />
+                                          <Label prefHeight="25.0" text="Password:" />
+                                          <Label prefHeight="25.0" text="Role:" />
+                                          <Label prefHeight="25.0" text="Name:" />
+                                          <Label prefHeight="25.0" text="Address:" />
+                                          <Label prefHeight="25.0" text="Contact Number:" />
+                                          <Label prefHeight="25.0" text="Email Address:" />
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets left="25.0" top="25.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                    <VBox prefHeight="200.0" prefWidth="175.0" spacing="10.0">
+                                       <children>
+                                          <TextField fx:id="addUserUsername">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                          <PasswordField fx:id="addUserPassword">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </PasswordField>
+                                          <ComboBox fx:id="addUserRole" prefWidth="150.0">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </ComboBox>
+                                          <TextField fx:id="addUserName">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                          <TextField fx:id="addUserAddress">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                          <TextField fx:id="addUserContactNumber">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                          <TextField fx:id="addUserEmailAddress">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets right="25.0" top="25.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </content>
+                        </ScrollPane>
+                        <Button fx:id="addUserSubmitButton" mnemonicParsing="false" onAction="#addUserSubmitButton_OnAction" prefHeight="25.0" prefWidth="75.0" styleClass="submitButton" text="Submit" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="240.0" />
+                        <Button fx:id="addUserClearButton" mnemonicParsing="false" onAction="#addUserClearButton_OnAction" prefHeight="25.0" prefWidth="75.0" styleClass="clearButton" text="Clear" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="130.0" />
+                        <Button fx:id="addUserCancelButton" mnemonicParsing="false" onAction="#addUserCancelButton_OnAction" prefHeight="25.0" prefWidth="75.0" styleClass="cancelButton" text="Cancel" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="20.0" />
+                     </children>
+                  </AnchorPane>
+                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" styleClass="actionBar" AnchorPane.bottomAnchor="90.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Button fx:id="addUserButton" mnemonicParsing="false" onAction="#addUserButton_OnAction" prefHeight="80.0" prefWidth="80.0" styleClass="actionButton" text="Add User" textAlignment="CENTER" wrapText="true" />
+                        <Button fx:id="changeStatusButton" mnemonicParsing="false" onAction="#changeStatusButton_OnAction" prefHeight="80.0" prefWidth="80.0" styleClass="actionButton" text="Change Activity Status" textAlignment="CENTER" wrapText="true" />
+                        <Button fx:id="deleteUserButton" mnemonicParsing="false" onAction="#deleteUserButton_OnAction" prefHeight="80.0" prefWidth="80.0" styleClass="actionButton" text="Delete User" textAlignment="CENTER" wrapText="true" />
+                        <Button fx:id="resetPasswordButton" mnemonicParsing="false" onAction="#resetPasswordButton_OnAction" prefHeight="80.0" prefWidth="80.0" styleClass="actionButton" text="Reset Password" textAlignment="CENTER" wrapText="true" />
+                     </children>
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
+                  </VBox>
+                  <VBox prefHeight="90.0" prefWidth="100.0" styleClass="actionBar" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                     <children>
+                        <Button fx:id="viewLogButton" mnemonicParsing="false" onAction="#viewLogButton_OnAction" prefHeight="80.0" prefWidth="80.0" styleClass="actionButton" text="View Log" textAlignment="CENTER" wrapText="true">
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </right>
+         <center>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox prefHeight="25.0" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <Label prefHeight="25.0" text="Search by">
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="searchComboBox" prefWidth="150.0" />
+                        <TextField fx:id="searchText" maxWidth="200.0" onKeyTyped="#searchText_OnChange" prefHeight="25.0" />
+                     </children>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <AnchorPane prefHeight="499.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <TableView fx:id="userTableView" prefHeight="499.0" prefWidth="833.0" styleClass="tableView" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
+                          <columns>
+                            <TableColumn fx:id="userIdTableColumn" prefWidth="75.0" text="User ID" />
+                            <TableColumn fx:id="usernameTableColumn" prefWidth="75.0" text="Username" />
+                              <TableColumn fx:id="roleTableColumn" prefWidth="75.0" text="Role" />
+                              <TableColumn fx:id="nameTableColumn" prefWidth="75.0" text="Name" />
+                              <TableColumn fx:id="addressTableColumn" prefWidth="75.0" text="Address" />
+                              <TableColumn fx:id="contactNumberTableColumn" prefWidth="75.0" text="Contact Number" />
+                              <TableColumn fx:id="emailAddressTableColumn" prefWidth="75.0" text="Email Address" />
+                              <TableColumn fx:id="statusTableColumn" prefWidth="75.0" text="Status" />
+                          </columns>
+                        </TableView>
+                     </children>
+                     <VBox.margin>
+                        <Insets right="20.0" />
+                     </VBox.margin>
+                  </AnchorPane>
+               </children>
+            </VBox>
+         </center>
+    </BorderPane>
+  </children>
+</AnchorPane>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="/view/Content.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HomeController">
+  <children>
+    <BorderPane layoutY="0.0" prefHeight="400.0000999999975" prefWidth="600.0" AnchorPane.bottomAnchor="-0.9999000000025262" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <top>
+        <VBox prefHeight="50.0" prefWidth="600.0">
+          <children>
+            <HBox id="titleBar" prefHeight="50.0" prefWidth="200.0">
+              <children>
+                <Label text="Home">
+                  <font>
+                    <Font size="20.0" />
+                  </font>
+                </Label>
+              </children>
+              <padding>
+                <Insets left="10.0" top="10.0" />
+              </padding>
+            </HBox>
+          </children>
+        </VBox>
+      </top>
+         <bottom>
+            <AnchorPane id="bottomBar" prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
+         </bottom>
+    </BorderPane>
+  </children>
+</AnchorPane>

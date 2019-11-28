@@ -1,0 +1,25 @@
+.actionButton:hover {
+    -fx-background-color: #D3D3D3;
+}
+
+.actionPane {
+    -fx-background-color: #969696;
+}
+
+.actionBar {
+    -fx-background-color: #43464B;
+}
+
+.tableView {
+    -fx-focus-color: #C8C8C8;
+    -fx-faint-focus-color: transparent;
+}
+
+#titleBar {
+    -fx-background-color: #D3D3D3;
+}
+
+#bottomBar {
+    -fx-background-color: #D3D3D3;
+}
+

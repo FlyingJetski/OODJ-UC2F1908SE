@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="727.0" prefWidth="1050.0" stylesheets="/view/Content.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SupplierController">
+  <children>
+    <BorderPane layoutY="0.0" prefHeight="400.0000999999975" prefWidth="600.0" AnchorPane.bottomAnchor="-0.9999000000025262" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <top>
+        <VBox prefHeight="50.0" prefWidth="600.0">
+          <children>
+            <HBox id="titleBar" prefHeight="50.0" prefWidth="200.0">
+              <children>
+                <Label text="Supplier">
+                  <font>
+                    <Font size="20.0" />
+                  </font>
+                </Label>
+              </children>
+              <padding>
+                <Insets left="10.0" top="10.0" />
+              </padding>
+            </HBox>
+          </children>
+        </VBox>
+      </top>
+         <bottom>
+            <AnchorPane id="bottomBar" prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
+         </bottom>
+         <right>
+            <AnchorPane id="actionBar" fx:id="actionBar" prefHeight="502.0" prefWidth="450.0" BorderPane.alignment="CENTER">
+               <children>
+                  <AnchorPane fx:id="editSupplierPane" layoutX="420.0" layoutY="10.0" prefHeight="502.0" prefWidth="350.0" styleClass="actionPane" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="-350.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <content>
+                              <HBox prefHeight="500.0" prefWidth="298.0">
+                                 <children>
+                                    <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="125.0" spacing="10.0">
+                                       <children>
+                                          <Label prefHeight="25.0" text="Name:" />
+                                          <Label prefHeight="25.0" text="Address:" />
+                                          <Label prefHeight="25.0" text="Post Code:" />
+                                          <Label prefHeight="25.0" text="Country:" />
+                                          <Label prefHeight="25.0" text="State/Province:" />
+                                          <Label prefHeight="25.0" text="City:" />
+                                          <Label prefHeight="25.0" text="Contact Number:" />
+                                          <Label prefHeight="25.0" text="Email Address:" />
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets left="25.0" top="25.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                    <VBox prefHeight="200.0" prefWidth="175.0" spacing="10.0">
+                                       <children>
+                                          <TextField fx:id="editSupplierName">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                          <TextField fx:id="editSupplierAddress">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                          <TextField fx:id="editSupplierPostCode">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                          <TextField fx:id="editSupplierCountry">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                          <TextField fx:id="editSupplierStateOrProvince">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                          <TextField fx:id="editSupplierCity">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                          <TextField fx:id="editSupplierContactNumber">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                          <TextField fx:id="editSupplierEmailAddress">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets right="25.0" top="25.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </content>
+                        </ScrollPane>
+                        <Button fx:id="editSupplierSubmitButton" mnemonicParsing="false" onAction="#editSupplierSubmitButton_OnAction" prefHeight="25.0" prefWidth="75.0" styleClass="submitButton" text="Submit" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="240.0" />
+                        <Button fx:id="editSupplierClearButton" mnemonicParsing="false" onAction="#editSupplierClearButton_OnAction" prefHeight="25.0" prefWidth="75.0" styleClass="clearButton" text="Clear" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="130.0" />
+                        <Button fx:id="editSupplierCancelButton" mnemonicParsing="false" onAction="#editSupplierCancelButton_OnAction" prefHeight="25.0" prefWidth="75.0" styleClass="cancelButton" text="Cancel" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="20.0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="addSupplierPane" layoutX="410.0" prefHeight="502.0" prefWidth="350.0" styleClass="actionPane" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="-350.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <content>
+                              <HBox prefHeight="500.0" prefWidth="298.0">
+                                 <children>
+                                    <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="125.0" spacing="10.0">
+                                       <children>
+                                          <Label prefHeight="25.0" text="Name:" />
+                                          <Label prefHeight="25.0" text="Address:" />
+                                          <Label prefHeight="25.0" text="Post Code:" />
+                                          <Label prefHeight="25.0" text="Country:" />
+                                          <Label prefHeight="25.0" text="State/Province:" />
+                                          <Label prefHeight="25.0" text="City:" />
+                                          <Label prefHeight="25.0" text="Contact Number:" />
+                                          <Label prefHeight="25.0" text="Email Address:" />
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets left="25.0" top="25.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                    <VBox prefHeight="200.0" prefWidth="175.0" spacing="10.0">
+                                       <children>
+                                          <TextField fx:id="addSupplierName">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                          <TextField fx:id="addSupplierAddress">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                          <TextField fx:id="addSupplierPostCode">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                          <TextField fx:id="addSupplierCountry">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                          <TextField fx:id="addSupplierStateOrProvince">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                          <TextField fx:id="addSupplierCity">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                          <TextField fx:id="addSupplierContactNumber">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                          <TextField fx:id="addSupplierEmailAddress">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets right="25.0" top="25.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </content>
+                        </ScrollPane>
+                        <Button fx:id="addSupplierSubmitButton" mnemonicParsing="false" onAction="#addSupplierSubmitButton_OnAction" prefHeight="25.0" prefWidth="75.0" styleClass="submitButton" text="Submit" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="240.0" />
+                        <Button fx:id="addSupplierClearButton" mnemonicParsing="false" onAction="#addSupplierClearButton_OnAction" prefHeight="25.0" prefWidth="75.0" styleClass="clearButton" text="Clear" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="130.0" />
+                        <Button fx:id="addSupplierCancelButton" mnemonicParsing="false" onAction="#addSupplierCancelButton_OnAction" prefHeight="25.0" prefWidth="75.0" styleClass="cancelButton" text="Cancel" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="20.0" />
+                     </children>
+                  </AnchorPane>
+                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" styleClass="actionBar" AnchorPane.bottomAnchor="90.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Button fx:id="addSupplierButton" mnemonicParsing="false" onAction="#addSupplierButton_OnAction" prefHeight="80.0" prefWidth="80.0" styleClass="actionButton" text="Add Supplier" textAlignment="CENTER" wrapText="true" />
+                        <Button fx:id="changeStatusButton" mnemonicParsing="false" onAction="#changeStatusButton_OnAction" prefHeight="80.0" prefWidth="80.0" styleClass="actionButton" text="Change Activity Status" textAlignment="CENTER" wrapText="true" />
+                        <Button fx:id="editSupplierButton" mnemonicParsing="false" onAction="#editSupplierButton_OnAction" prefHeight="80.0" prefWidth="80.0" styleClass="actionButton" text="Edit Supplier" textAlignment="CENTER" wrapText="true" />
+                        <Button fx:id="deleteSupplierButton" mnemonicParsing="false" onAction="#deleteSupplierButton_OnAction" prefHeight="80.0" prefWidth="80.0" styleClass="actionButton" text="Delete Supplier" textAlignment="CENTER" wrapText="true" />
+                     </children>
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
+                  </VBox>
+                  <VBox prefHeight="90.0" prefWidth="100.0" styleClass="actionBar" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                     <children>
+                        <Button fx:id="viewLogButton" mnemonicParsing="false" onAction="#viewLogButton_OnAction" prefHeight="80.0" prefWidth="80.0" styleClass="actionButton" text="View Log" textAlignment="CENTER" wrapText="true" />
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </right>
+         <center>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox prefHeight="25.0" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <Label prefHeight="25.0" text="Search by">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </Label>
+                        <ComboBox fx:id="searchComboBox" prefWidth="150.0" />
+                        <TextField fx:id="searchText" maxWidth="200.0" onKeyTyped="#searchText_OnChange" prefHeight="25.0" />
+                     </children>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <AnchorPane prefHeight="499.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <TableView fx:id="supplierTableView" prefHeight="499.0" prefWidth="833.0" styleClass="tableView" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
+                           <columns>
+                              <TableColumn fx:id="supplierIdTableColumn" prefWidth="75.0" text="Supplier ID" />
+                              <TableColumn fx:id="nameTableColumn" prefWidth="75.0" text="Name" />
+                              <TableColumn fx:id="addressTableColumn" prefWidth="75.0" text="Address" />
+                              <TableColumn fx:id="postCodeTableColumn" prefWidth="75.0" text="Post Code" />
+                              <TableColumn fx:id="countryTableColumn" prefWidth="75.0" text="Country" />
+                              <TableColumn fx:id="stateOrProvinceTableColumn" prefWidth="75.0" text="State/Province" />
+                              <TableColumn fx:id="cityTableColumn" prefWidth="75.0" text="City" />
+                              <TableColumn fx:id="contactNumberTableColumn" prefWidth="75.0" text="Contact Number" />
+                              <TableColumn fx:id="emailAddressTableColumn" prefWidth="75.0" text="Email Address" />
+                              <TableColumn fx:id="statusTableColumn" prefWidth="75.0" text="Status" />
+                           </columns>
+                        </TableView>
+                     </children>
+                     <VBox.margin>
+                        <Insets right="20.0" />
+                     </VBox.margin>
+                  </AnchorPane>
+               </children>
+            </VBox>
+         </center>
+    </BorderPane>
+  </children>
+</AnchorPane>

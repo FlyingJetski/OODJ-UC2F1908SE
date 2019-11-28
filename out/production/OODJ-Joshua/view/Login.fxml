@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<StackPane id="StackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="284.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
+  <children>
+    <GridPane fx:id="gridPane" alignment="CENTER" gridLinesVisible="false" maxHeight="284.0" maxWidth="300.0" prefHeight="284.0" prefWidth="300.0">
+      <children>
+        <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" spacing="5.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+          <children>
+            <TextField id="usernameTextField" fx:id="usernameText" prefWidth="200.0" />
+            <PasswordField fx:id="passwordText" prefWidth="200.0" />
+          </children>
+          <GridPane.margin>
+            <Insets right="30.0" top="2.5" />
+          </GridPane.margin>
+        </VBox>
+        <HBox alignment="CENTER" prefHeight="54.0" prefWidth="253.0" spacing="10.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="3">
+          <children>
+            <Button fx:id="confirmButton" defaultButton="true" mnemonicParsing="false" onAction="#confirmButton_OnAction" prefHeight="24.0" text="Confirm" />
+            <Button fx:id="forgotPasswordButton" graphicTextGap="4.0" mnemonicParsing="false" onAction="#forgotPasswordButton_OnAction" prefHeight="24.0" prefWidth="136.6666259765625" text="I forgot my password" wrapText="false" />
+          </children>
+        </HBox>
+        <ImageView fitHeight="102.5" fitWidth="136.6666626095308" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+        <Label text="Product Catalogue System" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+          <font>
+            <Font name="System Bold" size="18.0" />
+          </font>
+        </Label>
+        <VBox alignment="CENTER_RIGHT" fillWidth="true" prefHeight="200.0" prefWidth="100.0" spacing="5.0" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+          <children>
+            <Label alignment="CENTER_LEFT" contentDisplay="LEFT" focusTraversable="false" prefHeight="25.0" text="Username:" />
+            <Label prefHeight="25.0" text="Password:" />
+          </children>
+          <padding>
+            <Insets />
+          </padding>
+          <GridPane.margin>
+            <Insets right="10.0" />
+          </GridPane.margin>
+        </VBox>
+      </children>
+      <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="109.0" minWidth="10.0" prefWidth="91.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="144.0" minWidth="10.0" prefWidth="129.0" />
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints maxHeight="185.0" minHeight="10.0" prefHeight="149.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="105.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="105.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="107.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
+      </rowConstraints>
+    </GridPane>
+  </children>
+</StackPane>

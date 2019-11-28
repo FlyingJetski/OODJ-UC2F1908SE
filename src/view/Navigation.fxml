@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane fx:id="contentPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="600.0" stylesheets="/view/Navigation.css" visible="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NavigationController">
+  <center>
+  </center>
+   <left>
+      <AnchorPane prefHeight="200.0" prefWidth="64.0" styleClass="navigationBar" BorderPane.alignment="CENTER">
+         <children>
+          <FlowPane fx:id="navigationBar" alignment="TOP_CENTER" columnHalignment="LEFT" maxWidth="64.0" minWidth="36.0" orientation="HORIZONTAL" prefHeight="533.0" prefWidth="64.0" rowValignment="CENTER" AnchorPane.bottomAnchor="78.0" AnchorPane.topAnchor="0.0">
+            <children>
+              <Button id="homeButton" fx:id="homeButton" cancelButton="false" contentDisplay="CENTER" defaultButton="false" maxHeight="-1.0" maxWidth="-1.0" mnemonicParsing="false" onAction="#homeButton_OnAction" prefHeight="48.0" prefWidth="48.0" styleClass="navigationButton" textAlignment="LEFT" />
+              <Label fx:id="homeLabel" alignment="CENTER_LEFT" styleClass="navigationLabel" text="Home" textAlignment="LEFT">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Label>
+              <Button id="productButton" fx:id="productButton" maxHeight="-1.0" maxWidth="-1.0" mnemonicParsing="false" onAction="#productButton_OnAction" prefHeight="48.0" prefWidth="48.0" styleClass="navigationButton" text="" />
+              <Label fx:id="productLabel" alignment="CENTER_LEFT" styleClass="navigationLabel" text="Product" textAlignment="LEFT">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Label>
+              <Button id="catalogueButton" fx:id="catalogueButton" maxHeight="-1.0" maxWidth="-1.0" mnemonicParsing="false" onAction="#catalogueButton_OnAction" prefHeight="48.0" prefWidth="48.0" styleClass="navigationButton" text="" />
+              <Label fx:id="catalogueLabel" alignment="CENTER_LEFT" styleClass="navigationLabel" text="Catalogue" textAlignment="LEFT">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Label>
+              <Button id="supplierButton" fx:id="supplierButton" maxHeight="-1.0" maxWidth="-1.0" mnemonicParsing="false" onAction="#supplierButton_OnAction" prefHeight="48.0" prefWidth="48.0" styleClass="navigationButton" text="" />
+              <Label fx:id="supplierLabel" alignment="CENTER_LEFT" styleClass="navigationLabel" text="Supplier">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Label>
+              <Button id="userButton" fx:id="userButton" maxHeight="-1.0" maxWidth="-1.0" mnemonicParsing="false" onAction="#userButton_OnAction" prefHeight="48.0" prefWidth="48.0" styleClass="navigationButton" text="" />
+              <Label fx:id="userLabel" alignment="CENTER_LEFT" styleClass="navigationLabel" text="User" textAlignment="LEFT">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Label>
+              <Button id="personalInformationButton" fx:id="personalInformationButton" maxHeight="-1.0" maxWidth="-1.0" mnemonicParsing="false" onAction="#personalInformationButton_OnAction" prefHeight="48.0" prefWidth="48.0" styleClass="navigationButton" text="" />
+              <Label fx:id="personalLabel" alignment="CENTER_LEFT" styleClass="navigationLabel" text="Personal" textAlignment="LEFT">
+                 <font>
+                    <Font size="10.0" />
+                 </font>
+                  </Label>
+              <Label fx:id="informationLabel" alignment="CENTER_LEFT" styleClass="navigationLabel" text="Information" textAlignment="LEFT">
+                 <font>
+                    <Font size="10.0" />
+                 </font>
+                  </Label>
+            </children>
+          </FlowPane>
+            <Button id="openInExplorerButton" fx:id="openInExplorerButton" mnemonicParsing="false" onAction="#openInExplorerButton_OnAction" prefHeight="48.0" prefWidth="48.0" styleClass="navigationButton" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" />
+            <Label alignment="CENTER" styleClass="navigationLabel" text="View Data in" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" styleClass="navigationLabel" text="Explorer" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <padding>
+            <Insets bottom="10.0" />
+         </padding>
+      </AnchorPane>
+   </left>
+</BorderPane>

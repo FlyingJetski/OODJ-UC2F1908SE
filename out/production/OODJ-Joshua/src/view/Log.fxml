@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LogController">
+   <children>
+      <TableView fx:id="loginTableView" layoutX="30.0" layoutY="30.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <columns>
+            <TableColumn fx:id="loginTimestampTableColumn" prefWidth="75.0" text="Timestamp" />
+            <TableColumn fx:id="loginUserTableColumn" prefWidth="75.0" text="User" />
+            <TableColumn fx:id="loginActionTableColumn" prefWidth="75.0" text="Action" />
+         </columns>
+      </TableView>
+      <TableView fx:id="productTableView" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columns>
+          <TableColumn fx:id="productTimestampTableColumn" prefWidth="75.0" text="Timestamp" />
+          <TableColumn fx:id="productUserTableColumn" prefWidth="75.0" text="User" />
+            <TableColumn fx:id="productActionTableColumn" prefWidth="75.0" text="Action" />
+        </columns>
+      </TableView>
+      <TableView fx:id="catalogueTableView" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <columns>
+            <TableColumn fx:id="catalogueTimestampTableColumn" prefWidth="75.0" text="Timestamp" />
+            <TableColumn fx:id="catalogueUserTableColumn" prefWidth="75.0" text="User" />
+            <TableColumn fx:id="catalogueActionTableColumn" prefWidth="75.0" text="Action" />
+         </columns>
+      </TableView>
+      <TableView fx:id="supplierTableView" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <columns>
+            <TableColumn fx:id="supplierTimestampTableColumn" prefWidth="75.0" text="Timestamp" />
+            <TableColumn fx:id="supplierUserTableColumn" prefWidth="75.0" text="User" />
+            <TableColumn fx:id="supplierActionTableColumn" prefWidth="75.0" text="Action" />
+         </columns>
+      </TableView>
+   </children>
+</AnchorPane>

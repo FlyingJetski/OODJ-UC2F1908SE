@@ -1,0 +1,43 @@
+.navigationButton {
+    -fx-background-size: 32px 32px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+}
+
+.navigationLabel {
+    -fx-text-fill: white;
+}
+
+.navigationBar {
+    -fx-background-color: #43464B;
+}
+
+#homeButton {
+    -fx-background-image: url('/resources/images/Home.png');
+}
+
+#productButton {
+    -fx-background-image: url('/resources/images/Product.png');
+}
+
+#supplierButton {
+    -fx-background-image: url('/resources/images/Supplier.png');
+}
+
+#catalogueButton {
+    -fx-background-image: url('/resources/images/Catalogue.png');
+}
+
+#userButton {
+    -fx-background-image: url('/resources/images/User.png');
+}
+
+#personalInformationButton {
+    -fx-background-image: url('/resources/images/Personal_Information.png');
+}
+
+#openInExplorerButton {
+    -fx-background-image: url('/resources/images/Open_Explorer.png');
+}
