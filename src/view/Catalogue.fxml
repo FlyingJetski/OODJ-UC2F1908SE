@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.media.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.geometry.*?>
@@ -8,7 +9,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="687.0" prefWidth="600.0" stylesheets="/view/Content.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CatalogueController">
+<AnchorPane prefHeight="687.0" prefWidth="879.0" stylesheets="/view/Content.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CatalogueController">
   <children>
     <BorderPane layoutY="0.0" prefHeight="400.0000999999975" prefWidth="600.0" AnchorPane.bottomAnchor="-0.9999000000025262" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <top>
@@ -33,8 +34,96 @@
             <AnchorPane id="bottomBar" prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
          </bottom>
          <right>
-            <AnchorPane fx:id="actionBar" prefHeight="502.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            <AnchorPane fx:id="actionBar" prefHeight="502.0" prefWidth="450.0" BorderPane.alignment="CENTER">
                <children>
+                  <AnchorPane fx:id="addCataloguePane" layoutX="420.0" layoutY="10.0" prefHeight="502.0" prefWidth="350.0" styleClass="actionPane" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="-350.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <content>
+                              <HBox prefHeight="500.0" prefWidth="298.0">
+                                 <children>
+                                    <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="125.0" spacing="10.0">
+                                       <HBox.margin>
+                                          <Insets left="25.0" top="25.0" />
+                                       </HBox.margin>
+                                       <children>
+                                          <Label prefHeight="25.0" text="Name:" />
+                                          <Label prefHeight="25.0" text="Products:" />
+                                          <Label prefHeight="25.0" text="Discount:" />
+                                          <FlowPane alignment="TOP_RIGHT" prefHeight="150.0" prefWidth="78.0">
+                                             <children>
+                                                <Label text="Selected Products:" />
+                                             </children>
+                                          </FlowPane>
+                                          <Label prefHeight="25.0" text="Starting Date:" />
+                                          <Label prefHeight="25.0" text="Ending Date:" />
+                                          <Label prefHeight="25.0" text="Description:" />
+                                       </children>
+                                    </VBox>
+                                    <VBox prefHeight="200.0" prefWidth="175.0" spacing="10.0">
+                                       <HBox.margin>
+                                          <Insets right="25.0" top="25.0" />
+                                       </HBox.margin>
+                                       <children>
+                                          <TextField fx:id="addCatalogueName">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                          <ComboBox fx:id="addCatalogueProducts" prefWidth="150.0">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </ComboBox>
+                                          <TextField fx:id="addCatalogueDiscount">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                          <TableView fx:id="addCatalogueSelectedProducts" prefHeight="115.0" prefWidth="100.0">
+                                             <columns>
+                                                <TableColumn fx:id="addCatalogueSelectedProductsNameTableColumn" prefWidth="97.0" text="Name" />
+                                                <TableColumn fx:id="addCatalogueSelectedProductsDiscountTableColumn" prefWidth="53.0" text="Disc" />
+                                             </columns>
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </TableView>
+                                          <HBox alignment="TOP_CENTER" prefHeight="25.0" prefWidth="200.0" spacing="10.0">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                             <children>
+                                                <Button fx:id="addCatalogueSelectedProductsAddButton" mnemonicParsing="false" onAction="#addCatalogueSelectedProductsAddButton_OnAction" text="Add" />
+                                                <Button fx:id="addCatalogueSelectedProductsRemoveButton" mnemonicParsing="false" onAction="#addCatalogueSelectedProductsRemoveButton_OnAction" text="Remove" />
+                                             </children>
+                                          </HBox>
+                                          <DatePicker fx:id="addCatalogueStartingDate">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </DatePicker>
+                                          <DatePicker fx:id="addCatalogueEndingDate">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </DatePicker>
+                                          <TextArea fx:id="addCatalogueDescription" prefHeight="100.0" prefWidth="200.0">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </TextArea>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </content>
+                        </ScrollPane>
+                        <Button fx:id="addCatalogueSubmitButton" layoutX="36.0" layoutY="388.0" mnemonicParsing="false" onAction="#addCatalogueSubmitButton_OnAction" prefHeight="25.0" prefWidth="75.0" styleClass="submitButton" text="Submit" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="240.0" />
+                        <Button fx:id="addCatalogueClearButton" layoutX="103.0" layoutY="387.0" mnemonicParsing="false" onAction="#addCatalogueClearButton_OnAction" prefHeight="25.0" prefWidth="75.0" styleClass="clearButton" text="Clear" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="130.0" />
+                        <Button fx:id="addCatalogueCancelButton" layoutX="234.0" layoutY="548.0" mnemonicParsing="false" onAction="#addCatalogueCancelButton_OnAction" prefHeight="25.0" prefWidth="75.0" styleClass="cancelButton" text="Cancel" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="234.0" AnchorPane.rightAnchor="26.0" />
+                     </children>
+                  </AnchorPane>
                   <AnchorPane fx:id="editCataloguePane" layoutX="400.0" prefHeight="502.0" prefWidth="350.0" styleClass="actionPane" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="-350.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -45,10 +134,10 @@
                                        <children>
                                           <Label prefHeight="25.0" text="Name:" />
                                           <Label prefHeight="25.0" text="Products:" />
+                                          <Label prefHeight="25.0" text="Discount:" />
                                           <FlowPane alignment="TOP_RIGHT" prefHeight="150.0" prefWidth="78.0">
                                              <children>
-                                                <Label text="Selected " />
-                                                <Label text="Products:" />
+                                                <Label text="Selected Products:" />
                                              </children>
                                           </FlowPane>
                                           <Label prefHeight="25.0" text="Starting Date:" />
@@ -71,11 +160,20 @@
                                                 <Insets left="15.0" right="15.0" />
                                              </VBox.margin>
                                           </ComboBox>
-                                          <ListView fx:id="editCatalogueSelectedProducts" editable="true" prefHeight="115.0" prefWidth="200.0">
+                                          <TextField fx:id="editCatalogueDiscount">
                                              <VBox.margin>
                                                 <Insets left="15.0" right="15.0" />
                                              </VBox.margin>
-                                          </ListView>
+                                          </TextField>
+                                          <TableView fx:id="editCatalogueSelectedProducts" prefHeight="115.0" prefWidth="100.0">
+                                            <columns>
+                                              <TableColumn fx:id="editCatalogueSelectedProductsNameTableColumn" prefWidth="97.0" text="Name" />
+                                              <TableColumn fx:id="editCatalogueSelectedProductsDiscountTableColumn" prefWidth="53.0" text="Disc" />
+                                            </columns>
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </TableView>
                                           <HBox alignment="TOP_CENTER" prefHeight="25.0" prefWidth="200.0" spacing="10.0">
                                              <children>
                                                 <Button fx:id="editCatalogueSelectedProductsAddButton" mnemonicParsing="false" onAction="#editCatalogueSelectedProductsAddButton_OnAction" text="Add" />
@@ -114,86 +212,7 @@
                         <Button fx:id="editCatalogueCancelButton" layoutX="210.0" layoutY="397.0" mnemonicParsing="false" onAction="#editCatalogueCancelButton_OnAction" prefHeight="25.0" prefWidth="75.0" styleClass="cancelButton" text="Cancel" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="20.0" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="addCataloguePane" layoutX="420.0" layoutY="10.0" prefHeight="502.0" prefWidth="350.0" styleClass="actionPane" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="-350.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <content>
-                              <HBox prefHeight="500.0" prefWidth="298.0">
-                                 <children>
-                                    <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="125.0" spacing="10.0">
-                                       <HBox.margin>
-                                          <Insets left="25.0" top="25.0" />
-                                       </HBox.margin>
-                                       <children>
-                                          <Label prefHeight="25.0" text="Name:" />
-                                          <Label prefHeight="25.0" text="Products:" />
-                                          <FlowPane alignment="TOP_RIGHT" prefHeight="150.0" prefWidth="78.0">
-                                             <children>
-                                                <Label text="Selected " />
-                                                <Label text="Products:" />
-                                             </children>
-                                          </FlowPane>
-                                          <Label prefHeight="25.0" text="Starting Date:" />
-                                          <Label prefHeight="25.0" text="Ending Date:" />
-                                          <Label prefHeight="25.0" text="Description:" />
-                                       </children>
-                                    </VBox>
-                                    <VBox prefHeight="200.0" prefWidth="175.0" spacing="10.0">
-                                       <HBox.margin>
-                                          <Insets right="25.0" top="25.0" />
-                                       </HBox.margin>
-                                       <children>
-                                          <TextField fx:id="addCatalogueName">
-                                             <VBox.margin>
-                                                <Insets left="15.0" right="15.0" />
-                                             </VBox.margin>
-                                          </TextField>
-                                          <ComboBox fx:id="addCatalogueProducts" prefWidth="150.0">
-                                             <VBox.margin>
-                                                <Insets left="15.0" right="15.0" />
-                                             </VBox.margin>
-                                          </ComboBox>
-                                          <ListView fx:id="addCatalogueSelectedProducts" editable="true" prefHeight="115.0" prefWidth="200.0">
-                                             <VBox.margin>
-                                                <Insets left="15.0" right="15.0" />
-                                             </VBox.margin>
-                                          </ListView>
-                                          <HBox alignment="TOP_CENTER" prefHeight="25.0" prefWidth="200.0" spacing="10.0">
-                                             <VBox.margin>
-                                                <Insets left="15.0" right="15.0" />
-                                             </VBox.margin>
-                                             <children>
-                                                <Button fx:id="addCatalogueSelectedProductsAddButton" mnemonicParsing="false" onAction="#addCatalogueSelectedProductsAddButton_OnAction" text="Add" />
-                                                <Button fx:id="addCatalogueSelectedProductsRemoveButton" mnemonicParsing="false" onAction="#addCatalogueSelectedProductsRemoveButton_OnAction" text="Remove" />
-                                             </children>
-                                          </HBox>
-                                          <DatePicker fx:id="addCatalogueStartingDate">
-                                             <VBox.margin>
-                                                <Insets left="15.0" right="15.0" />
-                                             </VBox.margin>
-                                          </DatePicker>
-                                          <DatePicker fx:id="addCatalogueEndingDate">
-                                             <VBox.margin>
-                                                <Insets left="15.0" right="15.0" />
-                                             </VBox.margin>
-                                          </DatePicker>
-                                          <TextArea fx:id="addCatalogueDescription" prefHeight="100.0" prefWidth="200.0">
-                                             <VBox.margin>
-                                                <Insets left="15.0" right="15.0" />
-                                             </VBox.margin>
-                                          </TextArea>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                              </HBox>
-                           </content>
-                        </ScrollPane>
-                        <Button fx:id="addCatalogueSubmitButton" layoutX="36.0" layoutY="388.0" mnemonicParsing="false" onAction="#addCatalogueSubmitButton_OnAction" prefHeight="25.0" prefWidth="75.0" styleClass="submitButton" text="Submit" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="240.0" />
-                        <Button fx:id="addCatalogueClearButton" layoutX="103.0" layoutY="387.0" mnemonicParsing="false" onAction="#addCatalogueClearButton_OnAction" prefHeight="25.0" prefWidth="75.0" styleClass="clearButton" text="Clear" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="130.0" />
-                        <Button fx:id="addCatalogueCancelButton" layoutX="234.0" layoutY="548.0" mnemonicParsing="false" onAction="#addCatalogueCancelButton_OnAction" prefHeight="25.0" prefWidth="75.0" styleClass="cancelButton" text="Cancel" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="234.0" AnchorPane.rightAnchor="26.0" />
-                     </children>
-                  </AnchorPane>
-                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" styleClass="actionBar" AnchorPane.bottomAnchor="90.0" AnchorPane.topAnchor="0.0">
+                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" styleClass="actionBar" AnchorPane.bottomAnchor="90.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <Button fx:id="addCatalogueButton" mnemonicParsing="false" onAction="#addCatalogueButton_OnAction" prefHeight="80.0" prefWidth="80.0" styleClass="actionButton" text="Add Catalogue" textAlignment="CENTER" wrapText="true" />
                         <Button fx:id="editCatalogueButton" mnemonicParsing="false" onAction="#editCatalogueButton_OnAction" prefHeight="80.0" prefWidth="80.0" styleClass="actionButton" text="Edit Catalogue" textAlignment="CENTER" wrapText="true" />
@@ -203,7 +222,7 @@
                         <Insets top="10.0" />
                      </padding>
                   </VBox>
-                  <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="90.0" prefWidth="100.0" spacing="10.0" styleClass="actionBar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                  <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="90.0" prefWidth="100.0" spacing="10.0" styleClass="actionBar" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
                      <children>
                         <Button fx:id="viewLogButton" mnemonicParsing="false" onAction="#viewLogButton_OnAction" prefHeight="80.0" prefWidth="80.0" styleClass="actionButton" text="View Log" textAlignment="CENTER" wrapText="true" />
                      </children>
@@ -214,6 +233,19 @@
                </children>
             </AnchorPane>
          </right>
+         <center>
+            <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="711.0" prefWidth="429.0" BorderPane.alignment="CENTER">
+               <content>
+                  <FlowPane fx:id="catalogueFlowPane" prefHeight="200.0" prefWidth="200.0" />
+               </content>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+               <padding>
+                  <Insets bottom="10.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </ScrollPane>
+         </center>
     </BorderPane>
   </children>
 </AnchorPane>

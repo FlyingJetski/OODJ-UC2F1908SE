@@ -117,6 +117,7 @@ public class ProductController implements Initializable {
         categoriesCategoryTableView.setItems(Category.categories);
 
         // Initialize categories in add and edit product combobox
+        // Set the items inside combobox to show just category name instead of object's toString()
         addProductCategoryId.setItems(Category.categories);
         addProductCategoryId.setConverter(new StringConverter<Category>() {
             @Override

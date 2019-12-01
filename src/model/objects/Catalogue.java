@@ -6,22 +6,24 @@ import javafx.collections.ObservableList;
 import model.IOWriterReader;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Catalogue {
     protected int catalogueId;
     protected String name;
-    protected ArrayList<Integer> productsId = new ArrayList<>();
-    protected ArrayList<Double> productsDiscount = new ArrayList<>();
+    protected List<Integer> productsId;
+    protected List<Double> productsDiscount;
     protected Date dateStart;
     protected Date dateEnd;
     protected String description;
     public static ObservableList<Catalogue> catalogues = FXCollections.observableArrayList();
 
-    public Catalogue(int catalogueId, String name, ArrayList<Integer> productsId, ArrayList<Double> productsDiscount,
+    public Catalogue(int catalogueId, String name, List<Integer> productsId, List<Double> productsDiscount,
                      Date dateStart, Date dateEnd, String description) {
         this.catalogueId = catalogueId;
         this.name = name;
         this.productsId = productsId;
+        this.productsDiscount = productsDiscount;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
         this.description = description;
@@ -32,6 +34,7 @@ public class Catalogue {
         this.catalogueId = IOWriterReader.getCatalogueId();
         this.name = name;
         this.productsId = productsId;
+        this.productsDiscount = productsDiscount;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
         this.description = description;
@@ -53,19 +56,19 @@ public class Catalogue {
         this.name = name;
     }
 
-    public ArrayList<Integer> getProductsId() {
+    public List<Integer> getProductsId() {
         return productsId;
     }
 
-    public void setProductsId(ArrayList<Integer> productsId) {
+    public void setProductsId(List<Integer> productsId) {
         this.productsId = productsId;
     }
 
-    public ArrayList<Double> getProductsDiscount() {
+    public List<Double> getProductsDiscount() {
         return productsDiscount;
     }
 
-    public void setProductsDiscount(ArrayList<Double> productsId) {
+    public void setProductsDiscount(List<Double> productsDiscount) {
         this.productsDiscount = productsDiscount;
     }
 
@@ -95,9 +98,9 @@ public class Catalogue {
 
     @Override
     public String toString() {
-        return String.format("%s|%s|%s|%s|%s|%s",
+        return String.format("%s|%s|%s|%s|%s|%s|%s",
                 catalogueId, name, String.join("<>", productsId.toString()),
-                dateStart, dateEnd, description
+                String.join("<>", productsDiscount.toString()), dateStart, dateEnd, description
         );
     }
 }

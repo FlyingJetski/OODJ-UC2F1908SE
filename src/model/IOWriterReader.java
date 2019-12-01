@@ -6,13 +6,14 @@ import java.io.*;
 import java.sql.Date;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class IOWriterReader {
-    public static int productId;
-    public static int catalogueId;
-    public static int categoryId;
-    public static int supplierId;
-    public static int userId;
+    private static int productId;
+    private static int catalogueId;
+    private static int categoryId;
+    private static int supplierId;
+    private static int userId;
 
     public static final String directoryName = System.getProperty("user.dir");
     public static final String dataDirectory = directoryName + "\\src\\data\\";
@@ -52,12 +53,12 @@ public class IOWriterReader {
         while ((lineString = reader.readLine()) != null) {
             String[] catalogueArray = lineString.split("\\|");
 
-            ArrayList<Integer> productId = new ArrayList<>();
+            List<Integer> productId = new ArrayList<>();
             for (String product: catalogueArray[2].split("<>")) {
                 productId.add(Integer.parseInt(product));
             }
 
-            ArrayList<Double> productDiscount = new ArrayList<>();
+            List<Double> productDiscount = new ArrayList<>();
             for (String discount: catalogueArray[3].split("<>")) {
                 productDiscount.add(Double.parseDouble(discount));
             }

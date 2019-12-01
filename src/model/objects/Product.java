@@ -15,8 +15,7 @@ public class Product {
     protected double purchasingPrice;
     protected double sellingPrice;
     protected String profitMargin;
-    protected String categoryName;
-    protected String supplierName;
+    protected double discount;
 
     public static ObservableList<Product> products = FXCollections.observableArrayList();
 
@@ -116,6 +115,14 @@ public class Product {
 
     public void setProfitMargin(String profitMargin) {
         this.profitMargin = profitMargin;
+    }
+
+    public double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(double discount) {
+        this.discount = discount;
     }
 
     @Override
