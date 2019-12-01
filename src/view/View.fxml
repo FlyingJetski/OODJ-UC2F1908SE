@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewController">
+   <children>
+      <AnchorPane fx:id="productView" layoutX="125.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <content>
+                  <HBox alignment="CENTER" prefHeight="500.0" prefWidth="298.0">
+                     <children>
+                        <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="125.0" spacing="10.0">
+                           <children>
+                              <Label prefHeight="25.0" text="ID:" />
+                              <Label prefHeight="25.0" text="Name:" />
+                              <Label prefHeight="25.0" text="Category:" />
+                              <Label prefHeight="25.0" text="Supplier:" />
+                              <Label prefHeight="25.0" text="Quantity:" />
+                              <Label prefHeight="25.0" text="Purchasing Price:" />
+                              <Label prefHeight="25.0" text="Selling Price:" />
+                              <Label prefHeight="25.0" text="Profit Margin:" />
+                           </children>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </VBox>
+                        <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="175.0" spacing="10.0">
+                           <children>
+                              <TextField fx:id="viewProductId" disable="true">
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="viewProductName" disable="true">
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <ComboBox fx:id="viewProductCategoryId" disable="true" prefWidth="150.0">
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" />
+                                 </VBox.margin>
+                              </ComboBox>
+                              <ComboBox fx:id="viewProductSupplierId" disable="true" prefWidth="150.0">
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" />
+                                 </VBox.margin>
+                              </ComboBox>
+                              <TextField fx:id="viewProductQuantity" disable="true">
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="viewProductPurchasingPrice" disable="true">
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="viewProductSellingPrice" disable="true">
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="viewProductProfitMargin" disable="true">
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" />
+                                 </VBox.margin>
+                              </TextField>
+                           </children>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </content>
+            </ScrollPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="supplierView" layoutX="145.0" layoutY="34.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <content>
+                  <HBox alignment="CENTER" prefHeight="500.0" prefWidth="298.0">
+                     <children>
+                        <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="125.0" spacing="10.0">
+                           <children>
+                              <Label prefHeight="25.0" text="ID:" />
+                              <Label prefHeight="25.0" text="Name:" />
+                              <Label prefHeight="25.0" text="Address:" />
+                              <Label prefHeight="25.0" text="Post Code:" />
+                              <Label prefHeight="25.0" text="Country:" />
+                              <Label prefHeight="25.0" text="State/Province:" />
+                              <Label prefHeight="25.0" text="City:" />
+                              <Label prefHeight="25.0" text="Contact Number:" />
+                              <Label prefHeight="25.0" text="Email Address:" />
+                              <Label prefHeight="25.0" text="Status:" />
+                           </children>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </VBox>
+                        <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="175.0" spacing="10.0">
+                           <children>
+                              <TextField fx:id="viewSupplierId" disable="true">
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="viewSupplierName" disable="true">
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="viewSupplierAddress" disable="true">
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="viewSupplierPostCode" disable="true">
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="viewSupplierCountry" disable="true">
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="viewSupplierStateOrProvince" disable="true">
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="viewSupplierCity" disable="true">
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="viewSupplierContactNumber" disable="true">
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="viewSupplierEmailAddress" disable="true">
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="viewSupplierStatus" disable="true">
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" />
+                                 </VBox.margin>
+                              </TextField>
+                           </children>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </content>
+            </ScrollPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="catalogueView" layoutX="135.0" layoutY="24.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <AnchorPane fx:id="userView" layoutX="155.0" layoutY="44.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <content>
+                  <HBox alignment="CENTER" prefHeight="500.0" prefWidth="298.0">
+                     <children>
+                        <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="125.0" spacing="10.0">
+                           <children>
+                              <Label prefHeight="25.0" text="ID:" />
+                              <Label prefHeight="25.0" text="Username:" />
+                              <Label prefHeight="25.0" text="Password:" />
+                              <Label prefHeight="25.0" text="Role:" />
+                              <Label prefHeight="25.0" text="Name:" />
+                              <Label prefHeight="25.0" text="Address:" />
+                              <Label prefHeight="25.0" text="Contact Number:" />
+                              <Label prefHeight="25.0" text="Email Address:" />
+                              <Label prefHeight="25.0" text="Status:" />
+                           </children>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </VBox>
+                        <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="175.0" spacing="10.0">
+                           <children>
+                              <TextField fx:id="viewUserId" disable="true">
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="viewUserUsername" disable="true">
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <PasswordField fx:id="viewUserPassword" disable="true">
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" />
+                                 </VBox.margin>
+                              </PasswordField>
+                              <ComboBox fx:id="viewUserRole" disable="true" prefWidth="150.0">
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" />
+                                 </VBox.margin>
+                              </ComboBox>
+                              <TextField fx:id="viewUserName" disable="true">
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="viewUserAddress" disable="true">
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="viewUserContactNumber" disable="true">
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="viewUserEmailAddress" disable="true">
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="viewUserStatus" disable="true">
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" />
+                                 </VBox.margin>
+                              </TextField>
+                           </children>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </content>
+            </ScrollPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

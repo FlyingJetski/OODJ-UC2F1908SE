@@ -41,3 +41,7 @@
 #openInExplorerButton {
     -fx-background-image: url('/resources/images/Open_Explorer.png');
 }
+
+#logOutButton {
+    -fx-background-image: url('/resources/images/Log_Out.png');
+}

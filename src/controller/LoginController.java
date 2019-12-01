@@ -22,9 +22,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
 public class LoginController {
-    @FXML private Button confirmButton;
-    @FXML private GridPane gridPane;
-
     @FXML TextField usernameText;
     @FXML TextField passwordText;
 
