@@ -6,15 +6,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import model.Authentication;
 import model.IOWriterReader;
-import model.Log;
+import model.objects.Log;
 import model.objects.User;
 
 import java.io.IOException;
@@ -39,7 +37,7 @@ public class LoginController {
     public void confirmButton_OnAction(Event event) throws IOException, InvalidKeySpecException, NoSuchAlgorithmException {
         try {
             instance = Authentication.login(usernameText.getText(), passwordText.getText());
-            Log.loginLogs.add(new Log("Logged in: " + instance.getUsername()));
+            Log.loginLogs.add(new Log("Logged in"));
 
             Parent navigationFXML = FXMLLoader.load(getClass().getResource("/view/Navigation.fxml"));
             Scene navigationScene = new Scene(navigationFXML);

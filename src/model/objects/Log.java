@@ -1,9 +1,8 @@
-package model;
+package model.objects;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import controller.LoginController;
-import model.objects.User;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -47,9 +46,9 @@ public class Log {
         this.action = action;
     }
 
-    public String getUserName() {
+    public String getUsername() {
         Predicate<User> userPredicate = user -> user.getUserId() == this.getUserId();
-        return User.users.filtered(userPredicate).get(0).getName();
+        return User.users.filtered(userPredicate).get(0).username;
     }
 
     public int getUserId() {

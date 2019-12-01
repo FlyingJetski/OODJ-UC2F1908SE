@@ -12,7 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
-import model.Log;
+import model.objects.Log;
 import model.objects.Category;
 import model.objects.Product;
 import model.objects.Product_Manager;

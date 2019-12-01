@@ -54,18 +54,18 @@ public class IOWriterReader {
             String[] catalogueArray = lineString.split("\\|");
 
             List<Integer> productId = new ArrayList<>();
-            for (String product: catalogueArray[2].split("<>")) {
+            for (String product: catalogueArray[3].split("<>")) {
                 productId.add(Integer.parseInt(product));
             }
 
             List<Double> productDiscount = new ArrayList<>();
-            for (String discount: catalogueArray[3].split("<>")) {
+            for (String discount: catalogueArray[4].split("<>")) {
                 productDiscount.add(Double.parseDouble(discount));
             }
 
             Catalogue.catalogues.add(new Catalogue(Integer.parseInt(catalogueArray[0]), catalogueArray[1],
-                    productId, productDiscount, LocalDate.parse(catalogueArray[4]),
-                    LocalDate.parse(catalogueArray[5]), catalogueArray[6]));
+                    Integer.parseInt(catalogueArray[2]), productId, productDiscount, LocalDate.parse(catalogueArray[5]),
+                    LocalDate.parse(catalogueArray[6]), catalogueArray[7]));
         }
 
         reader = new BufferedReader(new FileReader(categoryFile));

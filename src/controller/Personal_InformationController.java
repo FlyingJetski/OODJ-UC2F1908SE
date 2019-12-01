@@ -11,7 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import model.Authentication;
-import model.Log;
+import model.objects.Log;
 
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;

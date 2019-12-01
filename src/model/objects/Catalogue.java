@@ -1,5 +1,6 @@
 package model.objects;
 
+import controller.LoginController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
 public class Catalogue {
     protected int catalogueId;
     protected String name;
+    protected int userId;
     protected List<Integer> productsId;
     protected List<Double> productsDiscount;
     protected LocalDate dateStart;
@@ -22,10 +24,11 @@ public class Catalogue {
     protected String description;
     public static ObservableList<Catalogue> catalogues = FXCollections.observableArrayList();
 
-    public Catalogue(int catalogueId, String name, List<Integer> productsId, List<Double> productsDiscount,
+    public Catalogue(int catalogueId, String name, int userId, List<Integer> productsId, List<Double> productsDiscount,
                      LocalDate dateStart, LocalDate dateEnd, String description) {
         this.catalogueId = catalogueId;
         this.name = name;
+        this.userId = userId;
         this.productsId = productsId;
         this.productsDiscount = productsDiscount;
         this.dateStart = dateStart;
@@ -37,6 +40,7 @@ public class Catalogue {
                      LocalDate dateEnd, String description) {
         this.catalogueId = IOWriterReader.getCatalogueId();
         this.name = name;
+        this.userId = LoginController.getInstance().getUserId();
         this.productsId = productsId;
         this.productsDiscount = productsDiscount;
         this.dateStart = dateStart;
@@ -58,6 +62,19 @@ public class Catalogue {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getUserUsername() {
+        Predicate<User> userPredicate = user -> user.getUserId() == this.getUserId();
+        return User.users.filtered(userPredicate).get(0).username;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public List<String> getProductsName() {
@@ -112,8 +129,9 @@ public class Catalogue {
 
     @Override
     public String toString() {
-        return String.format("%s|%s|%s|%s|%s|%s|%s",
-                catalogueId, name, productsId.stream().map(Object::toString).collect(Collectors.joining("<>")),
+        return String.format("%s|%s|%s|%s|%s|%s|%s|%s",
+                catalogueId, name, userId,
+                productsId.stream().map(Object::toString).collect(Collectors.joining("<>")),
                 productsDiscount.stream().map(Object::toString).collect(Collectors.joining("<>")),
                 dateStart, dateEnd, description
         );

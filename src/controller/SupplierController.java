@@ -11,7 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import model.Log;
+import model.objects.Log;
 import model.objects.Supplier;
 
 import java.io.IOException;

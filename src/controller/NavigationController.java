@@ -16,8 +16,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import model.IOWriterReader;
-import model.Log;
-import model.objects.Product;
+import model.objects.Log;
+import model.objects.Administrator;
 import model.objects.Product_Manager;
 
 import java.awt.*;
@@ -56,7 +56,12 @@ public class NavigationController implements Initializable {
 
     @FXML
     public void homeButton_OnAction(Event event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Home.fxml"));
+        FXMLLoader loader = null;
+        if (LoginController.getInstance().getClass() == Administrator.class) {
+            loader = new FXMLLoader(getClass().getResource("/view/HomeAdministrator.fxml"));
+        } else if (LoginController.getInstance().getClass() == Product_Manager.class) {
+            loader = new FXMLLoader(getClass().getResource("/view/HomeProductManager.fxml"));
+        }
         resetButtonsAndLabels();
         homeButton.setDisable(true);
         homeLabel.setDisable(true);
@@ -149,7 +154,7 @@ public class NavigationController implements Initializable {
                 }
             });
             loginStage.show();
-            Log.loginLogs.add(new Log("Logged out: " + LoginController.getInstance().getUsername()));
+            Log.loginLogs.add(new Log("Logged out"));
         }
     }
 

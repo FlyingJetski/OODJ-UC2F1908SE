@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
 import model.DuplicateException;
-import model.Log;
+import model.objects.Log;
 import model.objects.*;
 
 import java.io.IOException;
@@ -33,6 +33,7 @@ public class CatalogueController implements Initializable {
     @FXML TableView<Catalogue> catalogueTableView;
     @FXML TableColumn catalogueIdTableColumn;
     @FXML TableColumn nameTableColumn;
+    @FXML TableColumn userUsernameTableColumn;
     @FXML TableColumn productsTableColumn;
     @FXML TableColumn discountsTableColumn;
     @FXML TableColumn startingDateTableColumn;
@@ -101,6 +102,7 @@ public class CatalogueController implements Initializable {
         // Configure product table columns and items
         catalogueIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("catalogueId"));
         nameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        userUsernameTableColumn.setCellValueFactory(new PropertyValueFactory<>("userUsername"));
         productsTableColumn.setCellValueFactory(new PropertyValueFactory<>("productsName"));
         discountsTableColumn.setCellValueFactory(new PropertyValueFactory<>("productsDiscount"));
         startingDateTableColumn.setCellValueFactory(new PropertyValueFactory<>("dateStart"));

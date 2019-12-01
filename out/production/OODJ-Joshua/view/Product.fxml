@@ -272,7 +272,7 @@
                         </TableView>
                      </children>
                      <VBox.margin>
-                        <Insets right="20.0" />
+                        <Insets />
                      </VBox.margin>
                   </AnchorPane>
                </children>

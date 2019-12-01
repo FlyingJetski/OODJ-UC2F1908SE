@@ -5,7 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import model.Log;
+import model.objects.Log;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -31,7 +31,7 @@ public class LogController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         PropertyValueFactory timestamp = new PropertyValueFactory<>("timestamp");
-        PropertyValueFactory user = new PropertyValueFactory<>("userName");
+        PropertyValueFactory user = new PropertyValueFactory<>("username");
         PropertyValueFactory action = new PropertyValueFactory<>("action");
         switch(NavigationController.getSelectedButton().getId()) {
             case "productButton":
