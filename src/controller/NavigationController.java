@@ -4,10 +4,20 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
 import model.IOWriterReader;
+import model.Log;
+import model.objects.Product;
 import model.objects.Product_Manager;
 
 import java.awt.*;
@@ -17,7 +27,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class NavigationController implements Initializable {
-    public static Button selectedButton = null;
+    private static Button selectedButton;
 
     @FXML BorderPane contentPane;
 
@@ -111,6 +121,39 @@ public class NavigationController implements Initializable {
         selectedButton = personalInformationButton;
     }
 
+    @FXML
+    public void openInExplorerButton_OnAction(Event event) throws IOException {
+        Desktop.getDesktop().open(new File(IOWriterReader.dataDirectory));
+    }
+
+    @FXML
+    public void logOutButton_OnAction (Event event) throws IOException {
+        Alert confirmationPopup = new Alert(Alert.AlertType.WARNING, "Are you sure you want to log out?",
+                ButtonType.YES, ButtonType.NO);
+        confirmationPopup.showAndWait();
+
+        if (confirmationPopup.getResult() == ButtonType.YES) {
+            Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+            Stage loginStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Parent loginFXML = FXMLLoader.load(getClass().getResource("/view/Login.fxml"));
+            loginStage.setTitle("Product Catalogue System");
+            loginStage.setScene(new Scene(loginFXML));
+            loginStage.setWidth(screenBounds.getWidth());
+            loginStage.setHeight(screenBounds.getHeight());
+            loginStage.setMaximized(true);
+            loginStage.setOnCloseRequest(closeEvent -> {
+                try {
+                    IOWriterReader.onExit();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+            loginStage.show();
+            Log.loginLogs.add(new Log("Logged out: " + LoginController.getInstance().getUsername()));
+        }
+    }
+
+    @FXML
     private void resetButtonsAndLabels() {
         // Reset buttons
         homeButton.setDisable(false);
@@ -141,7 +184,7 @@ public class NavigationController implements Initializable {
         }
     }
 
-    public void openInExplorerButton_OnAction(Event event) throws IOException {
-        Desktop.getDesktop().open(new File(IOWriterReader.dataDirectory));
+    public static Button getSelectedButton() {
+        return selectedButton;
     }
 }

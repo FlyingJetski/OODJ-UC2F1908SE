@@ -27,6 +27,8 @@ import java.util.ResourceBundle;
 import java.util.function.Predicate;
 
 public class UserController implements Initializable {
+    private static User selectedUserToView = null;
+
     @FXML AnchorPane addUserPane;
     @FXML AnchorPane resetPasswordPane;
 
@@ -94,6 +96,27 @@ public class UserController implements Initializable {
         emailAddressTableColumn.setCellValueFactory(new PropertyValueFactory<>("emailAddress"));
         statusTableColumn.setCellValueFactory(new PropertyValueFactory<>("statusText"));
         userTableView.setItems(User.users);
+        userTableView.setRowFactory( tableView -> {
+            TableRow<User> tableRow = new TableRow<>();
+            tableRow.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!tableRow.isEmpty()) ) {
+                    User selectedUser = tableRow.getItem();
+                    selectedUserToView = selectedUser;
+                    Stage viewStage = new Stage();
+                    try {
+                        viewStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/View.fxml"))));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    viewStage.setWidth(400);
+                    viewStage.setHeight(400);
+                    viewStage.setTitle("User View");
+                    viewStage.setResizable(false);
+                    viewStage.show();
+                }
+            });
+            return tableRow;
+        });
     }
 
     public void addUserButton_OnAction(Event event) {
@@ -273,5 +296,9 @@ public class UserController implements Initializable {
         } else {
             return false;
         }
+    }
+
+    public static User getSelectedUserToView() {
+        return selectedUserToView;
     }
 }

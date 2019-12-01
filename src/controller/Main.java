@@ -16,7 +16,6 @@ public class Main extends Application {
     @Override
     public void start(Stage loginStage) throws Exception{
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-
         Parent loginFXML = FXMLLoader.load(getClass().getResource("/view/Login.fxml"));
         loginStage.setTitle("Product Catalogue System");
         loginStage.setScene(new Scene(loginFXML));

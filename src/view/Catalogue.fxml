@@ -241,6 +241,7 @@
                         <Button fx:id="addCatalogueButton" mnemonicParsing="false" onAction="#addCatalogueButton_OnAction" prefHeight="80.0" prefWidth="80.0" styleClass="actionButton" text="Add Catalogue" textAlignment="CENTER" wrapText="true" />
                         <Button fx:id="editCatalogueButton" mnemonicParsing="false" onAction="#editCatalogueButton_OnAction" prefHeight="80.0" prefWidth="80.0" styleClass="actionButton" text="Edit Catalogue" textAlignment="CENTER" wrapText="true" />
                         <Button fx:id="deleteCatalogueButton" mnemonicParsing="false" onAction="#deleteCatalogueButton_OnAction" prefHeight="80.0" prefWidth="80.0" styleClass="actionButton" text="Delete Catalogue" textAlignment="CENTER" wrapText="true" />
+                        <Button fx:id="exportCatalogueButton" mnemonicParsing="false" onAction="#exportCatalogueButton_OnAction" prefHeight="80.0" prefWidth="80.0" styleClass="actionButton" text="Export Catalogue" textAlignment="CENTER" wrapText="true" />
                      </children>
                      <padding>
                         <Insets top="10.0" />

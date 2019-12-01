@@ -33,14 +33,7 @@ public class LogController implements Initializable {
         PropertyValueFactory timestamp = new PropertyValueFactory<>("timestamp");
         PropertyValueFactory user = new PropertyValueFactory<>("userName");
         PropertyValueFactory action = new PropertyValueFactory<>("action");
-        switch(NavigationController.selectedButton.getId()) {
-            case "userButton":
-                loginTimestampTableColumn.setCellValueFactory(timestamp);
-                loginUserTableColumn.setCellValueFactory(user);
-                loginActionTableColumn.setCellValueFactory(action);
-                loginTableView.setItems(Log.loginLogs);
-                loginTableView.toFront();
-                break;
+        switch(NavigationController.getSelectedButton().getId()) {
             case "productButton":
                 productTimestampTableColumn.setCellValueFactory(timestamp);
                 productUserTableColumn.setCellValueFactory(user);
@@ -61,6 +54,13 @@ public class LogController implements Initializable {
                 supplierActionTableColumn.setCellValueFactory(action);
                 supplierTableView.setItems(Log.supplierLogs);
                 supplierTableView.toFront();
+                break;
+            case "userButton":
+                loginTimestampTableColumn.setCellValueFactory(timestamp);
+                loginUserTableColumn.setCellValueFactory(user);
+                loginActionTableColumn.setCellValueFactory(action);
+                loginTableView.setItems(Log.loginLogs);
+                loginTableView.toFront();
                 break;
         }
     }

@@ -358,7 +358,6 @@ public class CatalogueController implements Initializable {
     }
 
     public void editCatalogueCancelButton_OnAction (Event event) {
-        editCatalogueClearButton.fire();
         editCataloguePaneCloseAnimation.play();
     }
 
@@ -385,6 +384,10 @@ public class CatalogueController implements Initializable {
             dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
             dialog.show();
         }
+    }
+
+    public void exportCatalogueButton_OnAction (Event event) {
+
     }
 
     public void viewLogButton_OnAction (Event event) throws IOException {

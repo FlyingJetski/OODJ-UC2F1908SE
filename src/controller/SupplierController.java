@@ -20,6 +20,8 @@ import java.util.ResourceBundle;
 import java.util.function.Predicate;
 
 public class SupplierController implements Initializable {
+    private static Supplier selectedSupplierToView = null;
+
     @FXML AnchorPane addSupplierPane;
     @FXML AnchorPane changeStatusPane;
     @FXML AnchorPane editSupplierPane;
@@ -101,6 +103,27 @@ public class SupplierController implements Initializable {
         emailAddressTableColumn.setCellValueFactory(new PropertyValueFactory<>("emailAddress"));
         statusTableColumn.setCellValueFactory(new PropertyValueFactory<>("statusText"));
         supplierTableView.setItems(Supplier.suppliers);
+        supplierTableView.setRowFactory( tableView -> {
+            TableRow<Supplier> tableRow = new TableRow<>();
+            tableRow.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!tableRow.isEmpty()) ) {
+                    Supplier selectedSupplier = tableRow.getItem();
+                    selectedSupplierToView = selectedSupplier;
+                    Stage viewStage = new Stage();
+                    try {
+                        viewStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/View.fxml"))));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    viewStage.setWidth(400);
+                    viewStage.setHeight(450);
+                    viewStage.setTitle("Supplier View");
+                    viewStage.setResizable(false);
+                    viewStage.show();
+                }
+            });
+            return tableRow;
+        });
     }
 
     public void addSupplierButton_OnAction(Event event) {
@@ -304,5 +327,9 @@ public class SupplierController implements Initializable {
                 break;
         }
         supplierTableView.setItems(Supplier.suppliers.filtered(searchComboBoxValue));
+    }
+
+    public static Supplier getSelectedSupplierToView() {
+        return selectedSupplierToView;
     }
 }

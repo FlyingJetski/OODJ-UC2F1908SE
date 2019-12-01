@@ -24,6 +24,8 @@ import java.util.ResourceBundle;
 import java.util.function.Predicate;
 
 public class ProductController implements Initializable {
+    private static Product selectedProductToView = null;
+
     @FXML AnchorPane categoriesPane;
     @FXML AnchorPane addProductPane;
     @FXML AnchorPane editProductPane;
@@ -110,6 +112,27 @@ public class ProductController implements Initializable {
         sellingPriceTableColumn.setCellValueFactory(new PropertyValueFactory<>("sellingPrice"));
         profitMarginTableColumn.setCellValueFactory(new PropertyValueFactory<>("profitMargin"));
         productTableView.setItems(Product.products);
+        productTableView.setRowFactory( tableView -> {
+            TableRow<Product> tableRow = new TableRow<>();
+            tableRow.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!tableRow.isEmpty()) ) {
+                    Product selectedProduct = tableRow.getItem();
+                    selectedProductToView = selectedProduct;
+                    Stage viewStage = new Stage();
+                    try {
+                        viewStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/View.fxml"))));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    viewStage.setWidth(400);
+                    viewStage.setHeight(400);
+                    viewStage.setTitle("Product View");
+                    viewStage.setResizable(false);
+                    viewStage.show();
+                }
+            });
+            return tableRow;
+        });
 
         // Configure category table columns and items
         categoriesCategoryIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("categoryId"));
@@ -398,5 +421,9 @@ public class ProductController implements Initializable {
                 break;
         }
         productTableView.setItems(Product.products.filtered(searchComboBoxValue));
+    }
+
+    public static Product getSelectedProductToView() {
+        return selectedProductToView;
     }
 }

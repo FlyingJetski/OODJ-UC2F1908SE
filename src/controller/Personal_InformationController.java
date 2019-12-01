@@ -37,6 +37,8 @@ public class Personal_InformationController implements Initializable {
     @FXML TextField statusText;
 
     @FXML Button editInformationButton;
+    @FXML Button editInformationSaveButton;
+    @FXML Button editInformationDiscardButton;
     @FXML TextField changePasswordOldPassword;
     @FXML TextField changePasswordNewPassword;
     @FXML TextField changePasswordConfirmPassword;
@@ -87,35 +89,50 @@ public class Personal_InformationController implements Initializable {
         actionTableColumn.setCellValueFactory(new PropertyValueFactory<>("action"));
         Predicate<Log> logPredicate = log -> log.getUserId() == LoginController.getInstance().getUserId();
         personalLogTableView.setItems(personalLog.filtered(logPredicate));
+
+        // Hide save and discard changes button
+        editInformationSaveButton.setVisible(false);
+        editInformationDiscardButton.setVisible(false);
     }
 
     public void editInformationButton_OnAction(Event event) {
         nameText.setDisable(false);
         addressText.setDisable(false);
         contactNumberText.setDisable(false);
+        emailAddressText.setDisable(false);
         editInformationButton.setDisable(true);
+        editInformationSaveButton.setVisible(true);
+        editInformationDiscardButton.setVisible(true);
     }
 
     public void editInformationSaveButton_OnAction(Event event) {
         LoginController.getInstance().setName(nameText.getText());
         LoginController.getInstance().setAddress(addressText.getText());
         LoginController.getInstance().setContactNumber(contactNumberText.getText());
+        LoginController.getInstance().setEmailAddress(emailAddressText.getText());
 
         nameText.setDisable(true);
         addressText.setDisable(true);
         contactNumberText.setDisable(true);
+        emailAddressText.setDisable(true);
         editInformationButton.setDisable(false);
+        editInformationSaveButton.setVisible(false);
+        editInformationDiscardButton.setVisible(false);
     }
 
     public void editInformationDiscardButton_OnAction(Event event) {
         nameText.setText(LoginController.getInstance().getName());
         addressText.setText(LoginController.getInstance().getAddress());
         contactNumberText.setText(LoginController.getInstance().getContactNumber());
+        emailAddressText.setText(LoginController.getInstance().getEmailAddress());
 
         nameText.setDisable(true);
         addressText.setDisable(true);
         contactNumberText.setDisable(true);
+        emailAddressText.setDisable(true);
         editInformationButton.setDisable(false);
+        editInformationSaveButton.setVisible(false);
+        editInformationDiscardButton.setVisible(false);
     }
 
     public void changePasswordButton_OnAction(Event event) {
