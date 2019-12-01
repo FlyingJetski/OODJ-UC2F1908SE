@@ -57,7 +57,7 @@
                                     </VBox>
                                     <VBox prefHeight="200.0" prefWidth="175.0" spacing="10.0">
                                        <children>
-                                          <TextField fx:id="editProductProductName">
+                                          <TextField fx:id="editProductName">
                                              <VBox.margin>
                                                 <Insets left="15.0" right="15.0" />
                                              </VBox.margin>
@@ -122,7 +122,7 @@
                                     </VBox>
                                     <VBox prefHeight="200.0" prefWidth="175.0" spacing="10.0">
                                        <children>
-                                          <TextField fx:id="addProductProductName">
+                                          <TextField fx:id="addProductName">
                                              <VBox.margin>
                                                 <Insets left="15.0" right="15.0" />
                                              </VBox.margin>
@@ -260,8 +260,8 @@
                      <children>
                         <TableView fx:id="productTableView" prefHeight="499.0" prefWidth="833.0" styleClass="tableView" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <columns>
-                              <TableColumn fx:id="productIdTableColumn" prefWidth="75.0" text="Product ID" />
-                              <TableColumn fx:id="productNameTableColumn" prefWidth="75.0" text="Product Name" />
+                              <TableColumn fx:id="productIdTableColumn" prefWidth="75.0" text="ID" />
+                              <TableColumn fx:id="nameTableColumn" prefWidth="75.0" text="Name" />
                               <TableColumn fx:id="categoryIdTableColumn" prefWidth="75.0" text="Category" />
                               <TableColumn fx:id="supplierIdTableColumn" prefWidth="75.0" text="Supplier" />
                               <TableColumn fx:id="quantityTableColumn" prefWidth="75.0" text="Quantity" />

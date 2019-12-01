@@ -3,6 +3,10 @@ package model.objects;
 import model.IOWriterReader;
 
 public class Administrator extends User {
+    public Administrator() {
+        this.role = "Administrator";
+    }
+
     public Administrator(int userId, String username, String password, String name, String address,
                          String contactNumber, String emailAddress, boolean status) {
         this.userId = userId;

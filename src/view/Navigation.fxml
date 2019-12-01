@@ -60,12 +60,12 @@
             </children>
           </FlowPane>
             <Button id="openInExplorerButton" fx:id="openInExplorerButton" mnemonicParsing="false" onAction="#openInExplorerButton_OnAction" prefHeight="48.0" prefWidth="48.0" styleClass="navigationButton" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" />
-            <Label alignment="CENTER" styleClass="navigationLabel" text="View Data in" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <Label fx:id="viewDataInLabel" alignment="CENTER" styleClass="navigationLabel" text="View Data in" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <font>
                   <Font size="10.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" styleClass="navigationLabel" text="Explorer" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <Label fx:id="explorerLabel" alignment="CENTER" styleClass="navigationLabel" text="Explorer" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <font>
                   <Font size="10.0" />
                </font>

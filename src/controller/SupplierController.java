@@ -85,7 +85,7 @@ public class SupplierController implements Initializable {
         editSupplierPaneCloseAnimation.setToX(startOfBoundsAnchorPane);
 
         // Populate combo box and set default value
-        searchComboBox.getItems().addAll("Supplier ID", "Name", "Address", "Post Code", "Country",
+        searchComboBox.getItems().addAll("ID", "Name", "Address", "Post Code", "Country",
                                             "State/Province", "City", "Contact Number", "Email Address");
         searchComboBox.setValue("Name");
 
@@ -275,7 +275,7 @@ public class SupplierController implements Initializable {
     public void searchText_OnChange (Event event) {
         Predicate<Supplier> searchComboBoxValue = null;
         switch (searchComboBox.getValue().toString()) {
-            case "Supplier ID":
+            case "ID":
                 searchComboBoxValue = supplier -> String.valueOf(supplier.getSupplierId()).contains(searchText.getText());
                 break;
             case "Name":

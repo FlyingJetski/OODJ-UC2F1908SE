@@ -27,6 +27,7 @@ public class NavigationController implements Initializable {
     @FXML Button supplierButton;
     @FXML Button userButton;
     @FXML Button personalInformationButton;
+    @FXML Button openInExplorerButton;
 
     @FXML Label homeLabel;
     @FXML Label productLabel;
@@ -35,6 +36,8 @@ public class NavigationController implements Initializable {
     @FXML Label userLabel;
     @FXML Label personalLabel;
     @FXML Label informationLabel;
+    @FXML Label viewDataInLabel;
+    @FXML Label explorerLabel;
 
     @FXML
     public void initialize(URL location, ResourceBundle resourceBundle) {
@@ -132,6 +135,9 @@ public class NavigationController implements Initializable {
             supplierLabel.setDisable(true);
             userButton.setDisable(true);
             userLabel.setDisable(true);
+            openInExplorerButton.setVisible(false);
+            viewDataInLabel.setVisible(false);
+            explorerLabel.setVisible(false);
         }
     }
 

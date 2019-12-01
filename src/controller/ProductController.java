@@ -33,7 +33,7 @@ public class ProductController implements Initializable {
     @FXML TextField searchText;
     @FXML TableView<Product> productTableView;
     @FXML TableColumn productIdTableColumn;
-    @FXML TableColumn productNameTableColumn;
+    @FXML TableColumn nameTableColumn;
     @FXML TableColumn categoryIdTableColumn;
     @FXML TableColumn supplierIdTableColumn;
     @FXML TableColumn quantityTableColumn;
@@ -48,14 +48,14 @@ public class ProductController implements Initializable {
     @FXML Button categoriesCategoryAddButton;
     @FXML Button categoriesCategoryDeleteButton;
 
-    @FXML TextField addProductProductName;
+    @FXML TextField addProductName;
     @FXML ComboBox<Category> addProductCategoryId;
     @FXML ComboBox<Supplier> addProductSupplierId;
     @FXML TextField addProductQuantity;
     @FXML TextField addProductPurchasingPrice;
     @FXML TextField addProductSellingPrice;
 
-    @FXML TextField editProductProductName;
+    @FXML TextField editProductName;
     @FXML ComboBox<Category> editProductCategoryId;
     @FXML ComboBox<Supplier> editProductSupplierId;
     @FXML TextField editProductQuantity;
@@ -96,13 +96,13 @@ public class ProductController implements Initializable {
         editProductPaneCloseAnimation.setToX(startOfBoundsAnchorPane);
 
         // Populate combo box and set default value
-        searchComboBox.getItems().addAll("Product ID", "Product Name", "Category Name", "Supplier Name",
+        searchComboBox.getItems().addAll("PID", "Name", "Category", "Supplier",
                                         "Quantity", "Purchasing Price", "Selling Price", "Profit Margin");
         searchComboBox.setValue("Product Name");
 
         // Configure product table columns and items
         productIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("productId"));
-        productNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("productName"));
+        nameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         categoryIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("categoryName"));
         supplierIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("supplierName"));
         quantityTableColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
@@ -234,18 +234,18 @@ public class ProductController implements Initializable {
     }
 
     public void addProductSubmitButton_OnAction (Event event) throws IOException {
-        Product newProduct = new Product(addProductProductName.getText(), Integer.parseInt(addProductCategoryId.getValue().toString().split("\\|")[0]),
+        Product newProduct = new Product(addProductName.getText(), Integer.parseInt(addProductCategoryId.getValue().toString().split("\\|")[0]),
                 Integer.parseInt(addProductSupplierId.getValue().toString().split("\\|")[0]), Integer.parseInt(addProductQuantity.getText()),
                 Double.parseDouble(addProductPurchasingPrice.getText()), Double.parseDouble(addProductSellingPrice.getText()));
         Product.products.add(newProduct);
-        Log.productLogs.add(new Log("Added product: " + newProduct.getProductName()));
+        Log.productLogs.add(new Log("Added product: " + newProduct.getName()));
         addProductClearButton.fire();
         addProductPaneCloseAnimation.play();
         refreshTableView();
     }
 
     public void addProductClearButton_OnAction (Event event) {
-        addProductProductName.setText(null);
+        addProductName.setText(null);
         addProductCategoryId.setValue(null);
         addProductSupplierId.setValue(null);
         addProductQuantity.setText(null);
@@ -273,7 +273,7 @@ public class ProductController implements Initializable {
                 editProductPaneCloseAnimation.play();
             }
 
-            editProductProductName.setText(selectedProduct.getProductName());
+            editProductName.setText(selectedProduct.getName());
             Predicate<Category> categoryPredicate = category -> category.getCategoryId() == selectedProduct.getCategoryId();
             editProductCategoryId.setValue(Category.categories.filtered(categoryPredicate).get(0));
             Predicate<Supplier> supplierPredicate = supplier -> supplier.getSupplierId() == selectedProduct.getSupplierId();
@@ -282,7 +282,7 @@ public class ProductController implements Initializable {
             editProductPurchasingPrice.setText(String.valueOf(selectedProduct.getPurchasingPrice()));
             editProductSellingPrice.setText(String.valueOf(selectedProduct.getSellingPrice()));
 
-            Log.productLogs.add(new Log("Edited product: " + selectedProduct.getProductName()));
+            Log.productLogs.add(new Log("Edited product: " + selectedProduct.getName()));
             editProductPaneCloseAnimation.play();
         }  catch (NullPointerException exception) {
             Dialog dialog = new Dialog();
@@ -296,7 +296,7 @@ public class ProductController implements Initializable {
 
     public void editProductSubmitButton_OnAction (Event event) {
         Product selectedProduct = productTableView.getSelectionModel().getSelectedItem();
-        selectedProduct.setProductName(editProductProductName.getText());
+        selectedProduct.setName(editProductName.getText());
         selectedProduct.setCategoryId(Integer.parseInt(editProductCategoryId.getValue().toString().split("\\|")[0]));
         selectedProduct.setSupplierId(Integer.parseInt(editProductSupplierId.getValue().toString().split("\\|")[0]));
         selectedProduct.setQuantity(Integer.parseInt(editProductQuantity.getText()));
@@ -308,7 +308,7 @@ public class ProductController implements Initializable {
     }
 
     public void editProductClearButton_OnAction (Event event) {
-        editProductProductName.setText(null);
+        editProductName.setText(null);
         editProductCategoryId.setValue(null);
         editProductSupplierId.setValue(null);
         editProductQuantity.setText(null);
@@ -335,7 +335,7 @@ public class ProductController implements Initializable {
                 Product.products.remove(selectedProduct);
             }
 
-            Log.productLogs.add(new Log("Deleted product: " + selectedProduct.getProductName()));
+            Log.productLogs.add(new Log("Deleted product: " + selectedProduct.getName()));
             refreshTableView();
         } catch (NullPointerException exception) {
             Dialog dialog = new Dialog();
@@ -372,17 +372,17 @@ public class ProductController implements Initializable {
     public void searchText_OnChange (Event event) {
         Predicate<Product> searchComboBoxValue = null;
         switch (searchComboBox.getValue().toString()) {
-            case "Product ID":
+            case "ID":
                 searchComboBoxValue = product -> String.valueOf(product.getProductId()).contains(searchText.getText());
                 break;
-            case "Product Name":
-                searchComboBoxValue = product -> product.getProductName().contains(searchText.getText());
+            case "Name":
+                searchComboBoxValue = product -> product.getName().contains(searchText.getText());
                 break;
-            case "Category Name":
-                searchComboBoxValue = product -> String.valueOf(product.getCategoryId()).contains(searchText.getText());
+            case "Category":
+                searchComboBoxValue = product -> String.valueOf(product.getCategoryName()).contains(searchText.getText());
                 break;
-            case "Supplier Name":
-                searchComboBoxValue = product -> String.valueOf(product.getSupplierId()).contains(searchText.getText());
+            case "Supplier":
+                searchComboBoxValue = product -> String.valueOf(product.getSupplierName()).contains(searchText.getText());
                 break;
             case "Quantity":
                 searchComboBoxValue = product -> String.valueOf(product.getQuantity()).contains(searchText.getText());

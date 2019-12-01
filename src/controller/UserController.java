@@ -77,7 +77,7 @@ public class UserController implements Initializable {
         resetPasswordPaneCloseAnimation.setToX(startOfBoundsAnchorPane);
 
         // Populate combo box and set default value
-        searchComboBox.getItems().addAll("User ID", "Username", "Role", "Name",
+        searchComboBox.getItems().addAll("ID", "Username", "Role", "Name",
                 "Address", "Contact Number", "Email Address");
         searchComboBox.setValue("Name");
 
@@ -242,7 +242,7 @@ public class UserController implements Initializable {
     public void searchText_OnChange (Event event) {
         Predicate<User> searchComboBoxValue = null;
         switch (searchComboBox.getValue().toString()) {
-            case "User ID":
+            case "ID":
                 searchComboBoxValue = user -> String.valueOf(user.getUserId()).contains(searchText.getText());
                 break;
             case "Username":

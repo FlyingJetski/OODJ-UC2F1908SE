@@ -57,7 +57,7 @@
                                     </VBox>
                                     <VBox prefHeight="200.0" prefWidth="175.0" spacing="10.0">
                                        <children>
-                                          <TextField fx:id="editProductProductName">
+                                          <TextField fx:id="editProductName">
                                              <VBox.margin>
                                                 <Insets left="15.0" right="15.0" />
                                              </VBox.margin>
@@ -122,7 +122,7 @@
                                     </VBox>
                                     <VBox prefHeight="200.0" prefWidth="175.0" spacing="10.0">
                                        <children>
-                                          <TextField fx:id="addProductProductName">
+                                          <TextField fx:id="addProductName">
                                              <VBox.margin>
                                                 <Insets left="15.0" right="15.0" />
                                              </VBox.margin>
@@ -246,22 +246,22 @@
                               <Font size="14.0" />
                            </font>
                            <HBox.margin>
-                              <Insets left="20.0" />
+                              <Insets />
                            </HBox.margin>
                         </Label>
                         <ComboBox fx:id="searchComboBox" prefWidth="150.0" />
                         <TextField fx:id="searchText" maxWidth="200.0" onKeyTyped="#searchText_OnChange" prefHeight="25.0" />
                      </children>
                      <VBox.margin>
-                        <Insets top="20.0" />
+                        <Insets />
                      </VBox.margin>
                   </HBox>
                   <AnchorPane prefHeight="499.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <TableView fx:id="productTableView" prefHeight="499.0" prefWidth="833.0" styleClass="tableView" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
+                        <TableView fx:id="productTableView" prefHeight="499.0" prefWidth="833.0" styleClass="tableView" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <columns>
-                              <TableColumn fx:id="productIdTableColumn" prefWidth="75.0" text="Product ID" />
-                              <TableColumn fx:id="productNameTableColumn" prefWidth="75.0" text="Product Name" />
+                              <TableColumn fx:id="productIdTableColumn" prefWidth="75.0" text="ID" />
+                              <TableColumn fx:id="nameTableColumn" prefWidth="75.0" text="Name" />
                               <TableColumn fx:id="categoryIdTableColumn" prefWidth="75.0" text="Category" />
                               <TableColumn fx:id="supplierIdTableColumn" prefWidth="75.0" text="Supplier" />
                               <TableColumn fx:id="quantityTableColumn" prefWidth="75.0" text="Quantity" />
@@ -276,6 +276,9 @@
                      </VBox.margin>
                   </AnchorPane>
                </children>
+               <padding>
+                  <Insets bottom="10.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
             </VBox>
          </center>
     </BorderPane>

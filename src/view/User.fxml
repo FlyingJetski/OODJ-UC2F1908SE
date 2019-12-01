@@ -153,7 +153,7 @@
                      <children>
                         <TableView fx:id="userTableView" prefHeight="499.0" prefWidth="833.0" styleClass="tableView" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <columns>
-                            <TableColumn fx:id="userIdTableColumn" prefWidth="75.0" text="User ID" />
+                            <TableColumn fx:id="userIdTableColumn" prefWidth="75.0" text="ID" />
                             <TableColumn fx:id="usernameTableColumn" prefWidth="75.0" text="Username" />
                               <TableColumn fx:id="roleTableColumn" prefWidth="75.0" text="Role" />
                               <TableColumn fx:id="nameTableColumn" prefWidth="75.0" text="Name" />

@@ -3,8 +3,8 @@ package model;
 import model.objects.*;
 
 import java.io.*;
-import java.sql.Date;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,8 +64,8 @@ public class IOWriterReader {
             }
 
             Catalogue.catalogues.add(new Catalogue(Integer.parseInt(catalogueArray[0]), catalogueArray[1],
-                    productId, productDiscount, Date.valueOf(catalogueArray[4]),
-                    Date.valueOf(catalogueArray[5]), catalogueArray[6]));
+                    productId, productDiscount, LocalDate.parse(catalogueArray[4]),
+                    LocalDate.parse(catalogueArray[5]), catalogueArray[6]));
         }
 
         reader = new BufferedReader(new FileReader(categoryFile));

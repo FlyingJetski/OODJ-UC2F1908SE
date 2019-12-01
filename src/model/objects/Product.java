@@ -8,7 +8,7 @@ import java.util.function.Predicate;
 
 public class Product {
     protected int productId;
-    protected String productName;
+    protected String name;
     protected int categoryId;
     protected int supplierId;
     protected int quantity;
@@ -19,28 +19,28 @@ public class Product {
 
     public static ObservableList<Product> products = FXCollections.observableArrayList();
 
-    public Product(int productId, String productName, int categoryId, int supplierId, int quantity,
+    public Product(int productId, String name, int categoryId, int supplierId, int quantity,
                    double purchasingPrice, double sellingPrice) {
         this.productId = productId;
         this.categoryId = categoryId;
         this.supplierId = supplierId;
-        this.productName = productName;
+        this.name = name;
         this.quantity = quantity;
         this.purchasingPrice = purchasingPrice;
         this.sellingPrice = sellingPrice;
-        this.profitMargin = (sellingPrice - purchasingPrice) / sellingPrice * 100 + "%";
+        this.profitMargin = ((sellingPrice - purchasingPrice) / purchasingPrice * 100) + "%";
     }
 
-    public Product(String productName, int categoryId, int supplierId, int quantity,
+    public Product(String name, int categoryId, int supplierId, int quantity,
                    double purchasingPrice, double sellingPrice) {
             this.productId = IOWriterReader.getProductId();
             this.categoryId = categoryId;
             this.supplierId = supplierId;
-            this.productName = productName;
+            this.name = name;
             this.quantity = quantity;
             this.purchasingPrice = purchasingPrice;
             this.sellingPrice = sellingPrice;
-            this.profitMargin = (sellingPrice - purchasingPrice) / sellingPrice * 100 + "%";
+            this.profitMargin = ((sellingPrice - purchasingPrice) / purchasingPrice * 100) + "%";
     }
 
     public int getProductId() {
@@ -51,12 +51,12 @@ public class Product {
         this.productId = productId;
     }
 
-    public String getProductName() {
-        return productName;
+    public String getName() {
+        return name;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getCategoryName() {
@@ -128,7 +128,7 @@ public class Product {
     @Override
     public String toString() {
         return String.format("%s|%s|%s|%s|%s|%s|%s|%s",
-                productId, productName, categoryId, supplierId,
+                productId, name, categoryId, supplierId,
                 quantity, purchasingPrice, sellingPrice,
                 profitMargin
         );

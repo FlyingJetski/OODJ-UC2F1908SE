@@ -136,7 +136,7 @@
                      <children>
                         <Label prefHeight="25.0" text="Search by">
                            <HBox.margin>
-                              <Insets left="20.0" />
+                              <Insets />
                            </HBox.margin>
                            <font>
                               <Font size="14.0" />
@@ -146,14 +146,14 @@
                         <TextField fx:id="searchText" maxWidth="200.0" onKeyTyped="#searchText_OnChange" prefHeight="25.0" />
                      </children>
                      <VBox.margin>
-                        <Insets top="20.0" />
+                        <Insets />
                      </VBox.margin>
                   </HBox>
                   <AnchorPane prefHeight="499.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <TableView fx:id="userTableView" prefHeight="499.0" prefWidth="833.0" styleClass="tableView" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
+                        <TableView fx:id="userTableView" prefHeight="499.0" prefWidth="833.0" styleClass="tableView" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <columns>
-                            <TableColumn fx:id="userIdTableColumn" prefWidth="75.0" text="User ID" />
+                            <TableColumn fx:id="userIdTableColumn" prefWidth="75.0" text="ID" />
                             <TableColumn fx:id="usernameTableColumn" prefWidth="75.0" text="Username" />
                               <TableColumn fx:id="roleTableColumn" prefWidth="75.0" text="Role" />
                               <TableColumn fx:id="nameTableColumn" prefWidth="75.0" text="Name" />
@@ -165,10 +165,13 @@
                         </TableView>
                      </children>
                      <VBox.margin>
-                        <Insets right="20.0" />
+                        <Insets />
                      </VBox.margin>
                   </AnchorPane>
                </children>
+               <padding>
+                  <Insets bottom="10.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
             </VBox>
          </center>
     </BorderPane>
