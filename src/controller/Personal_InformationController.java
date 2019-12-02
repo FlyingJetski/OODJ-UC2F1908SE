@@ -11,18 +11,23 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import model.Authentication;
+import model.IllegalInputFormatException;
+import model.NullValueException;
+import model.RegularExpressionPattern;
 import model.objects.Log;
 
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.ArrayList;
+import java.util.IllegalFormatException;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Personal_InformationController implements Initializable {
-    @FXML AnchorPane editInformationPane;
     @FXML AnchorPane changePasswordPane;
-    @FXML AnchorPane changeEmailPane;
 
     @FXML TableView<Log> personalLogTableView;
     @FXML TableColumn timestampTableColumn;
@@ -60,14 +65,10 @@ public class Personal_InformationController implements Initializable {
         // Initializing the animation objects with their corresponding pane
         changePasswordPaneOpenAnimation = new TranslateTransition(animationDuration, changePasswordPane);
         changePasswordPaneCloseAnimation = new TranslateTransition(animationDuration, changePasswordPane);
-        changeEmailPaneOpenAnimation = new TranslateTransition(animationDuration, changeEmailPane);
-        changeEmailPaneCloseAnimation = new TranslateTransition(animationDuration, changeEmailPane);
 
         // Hooking up the animation objects with the destinations
         changePasswordPaneOpenAnimation.setToX(outOfBoundsAnchorPane);
         changePasswordPaneCloseAnimation.setToX(startOfBoundsAnchorPane);
-        changeEmailPaneOpenAnimation.setToX(outOfBoundsAnchorPane);
-        changeEmailPaneCloseAnimation.setToX(startOfBoundsAnchorPane);
 
         // Populate personal information
         userIdText.setText(String.valueOf(LoginController.getInstance().getUserId()));
@@ -106,18 +107,56 @@ public class Personal_InformationController implements Initializable {
     }
 
     public void editInformationSaveButton_OnAction(Event event) {
-        LoginController.getInstance().setName(nameText.getText());
-        LoginController.getInstance().setAddress(addressText.getText());
-        LoginController.getInstance().setContactNumber(contactNumberText.getText());
-        LoginController.getInstance().setEmailAddress(emailAddressText.getText());
+        try {
+            boolean patternMatch = false;
+            for (String contactNumberPatternString: RegularExpressionPattern.getContactNumberPatternStringArrayList()) {
+                Pattern contactNumberPattern = Pattern.compile(contactNumberPatternString);
+                Matcher contactNumberMatcher = contactNumberPattern.matcher(contactNumberText.getText());
+                if (contactNumberMatcher.matches()) {
+                    patternMatch = true;
+                    break;
+                }
+            }
+            if (!patternMatch) {
+                throw new IllegalInputFormatException.ContactNumber();
+            }
+            Pattern emailAddressPattern = Pattern.compile(RegularExpressionPattern.getEmailAddressPatternString());
+            Matcher emailAddressMatcher = emailAddressPattern.matcher(emailAddressText.getText());
+            if (!emailAddressMatcher.matches()) {
+                throw new IllegalInputFormatException.EmailAddress();
+            }
+            if (nameText.getText() == null || addressText.getText() == null || contactNumberText.getText() == null ||
+                    emailAddressText.getText() == null) {
+                throw new NullValueException();
+            }
+            LoginController.getInstance().setName(nameText.getText());
+            LoginController.getInstance().setAddress(addressText.getText());
+            LoginController.getInstance().setContactNumber(contactNumberText.getText());
+            LoginController.getInstance().setEmailAddress(emailAddressText.getText());
 
-        nameText.setDisable(true);
-        addressText.setDisable(true);
-        contactNumberText.setDisable(true);
-        emailAddressText.setDisable(true);
-        editInformationButton.setDisable(false);
-        editInformationSaveButton.setVisible(false);
-        editInformationDiscardButton.setVisible(false);
+            nameText.setDisable(true);
+            addressText.setDisable(true);
+            contactNumberText.setDisable(true);
+            emailAddressText.setDisable(true);
+            editInformationButton.setDisable(false);
+            editInformationSaveButton.setVisible(false);
+            editInformationDiscardButton.setVisible(false);
+        } catch (IllegalInputFormatException.ContactNumber exception) {
+            Dialog dialog = new Dialog();
+            dialog.setContentText("Contact number is invalid.");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+            dialog.show();
+        } catch (IllegalInputFormatException.EmailAddress exception) {
+            Dialog dialog = new Dialog();
+            dialog.setContentText("Email address is invalid.");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+            dialog.show();
+        } catch (NullValueException exception) {
+            Dialog dialog = new Dialog();
+            dialog.setContentText("All fields must be filled.");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+            dialog.show();
+        }
     }
 
     public void editInformationDiscardButton_OnAction(Event event) {
@@ -146,22 +185,33 @@ public class Personal_InformationController implements Initializable {
     }
 
     public void changePasswordSubmitButton_OnAction (Event event) throws InvalidKeySpecException, NoSuchAlgorithmException {
-        if (Authentication.toHashString(usernameText.getText(),
-                changePasswordOldPassword.getText().toCharArray()).equals(LoginController.getInstance().getPassword())) {
-            if (changePasswordNewPassword.getText().equals(changePasswordConfirmPassword.getText())) {
-                LoginController.getInstance().setPassword(Authentication.toHashString(usernameText.getText(),
-                        changePasswordNewPassword.getText().toCharArray()));
-                changePasswordClearButton.fire();
-                changePasswordPaneCloseAnimation.play();
+        try {
+            if (changePasswordOldPassword.getText() == null || changePasswordNewPassword.getText() == null ||
+                    changePasswordConfirmPassword.getText() == null) {
+                throw new NullValueException();
+            }
+            if (Authentication.toHashString(usernameText.getText(),
+                    changePasswordOldPassword.getText().toCharArray()).equals(LoginController.getInstance().getPassword())) {
+                if (changePasswordNewPassword.getText().equals(changePasswordConfirmPassword.getText())) {
+                    LoginController.getInstance().setPassword(Authentication.toHashString(usernameText.getText(),
+                            changePasswordNewPassword.getText().toCharArray()));
+                    changePasswordClearButton.fire();
+                    changePasswordPaneCloseAnimation.play();
+                } else {
+                    Dialog dialog = new Dialog();
+                    dialog.setContentText("New password does not match.");
+                    dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+                    dialog.show();
+                }
             } else {
                 Dialog dialog = new Dialog();
-                dialog.setContentText("New password does not match.");
+                dialog.setContentText("Old password is incorrect.");
                 dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
                 dialog.show();
             }
-        } else {
+        } catch (NullValueException exception) {
             Dialog dialog = new Dialog();
-            dialog.setContentText("Old password is incorrect.");
+            dialog.setContentText("All fields must be filled.");
             dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
             dialog.show();
         }
@@ -178,32 +228,7 @@ public class Personal_InformationController implements Initializable {
         changePasswordPaneCloseAnimation.play();
     }
 
-    public void changeEmailButton_OnAction(Event event) {
-        if (changeEmailPane.getTranslateX() != outOfBoundsAnchorPane) {
-            resetPanes();
-            changeEmailPaneOpenAnimation.play();
-        }
-        else {
-            changeEmailPaneCloseAnimation.play();
-        }
-    }
-
     public void resetPanes() {
         changePasswordPaneCloseAnimation.play();
-        changeEmailPaneCloseAnimation.play();
     }
-
-    public void changeEmailSubmitButton_OnAction (Event event) {
-
-    }
-
-    public void changeEmailClearButton_OnAction (Event event) {
-
-    }
-
-    public void changeEmailCancelButton_OnAction (Event event) {
-
-    }
-
-
 }

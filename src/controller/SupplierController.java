@@ -11,6 +11,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import model.DuplicateException;
+import model.IllegalInputFormatException;
+import model.NullValueException;
+import model.RegularExpressionPattern;
 import model.objects.Log;
 import model.objects.Supplier;
 
@@ -18,6 +22,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SupplierController implements Initializable {
     private static Supplier selectedSupplierToView = null;
@@ -137,15 +143,65 @@ public class SupplierController implements Initializable {
     }
 
     public void addSupplierSubmitButton_OnAction (Event event) throws IOException {
-        Supplier newSupplier = new Supplier(addSupplierName.getText(), addSupplierAddress.getText(),
-                                            addSupplierPostCode.getText(), addSupplierCountry.getText(),
-                                            addSupplierStateOrProvince.getText(), addSupplierCity.getText(),
-                                            addSupplierContactNumber.getText(), addSupplierEmailAddress.getText());
-        Supplier.suppliers.add(newSupplier);
-        Log.supplierLogs.add(new Log("Added supplier: " + newSupplier.getName()));
-        addSupplierClearButton.fire();
-        addSupplierPaneCloseAnimation.play();
-        refreshTableView();
+        try {
+            for (Supplier supplier: Supplier.suppliers) {
+                if (supplier.getName().equals(addSupplierName.getText())) {
+                    throw new DuplicateException();
+                }
+            }
+            boolean patternMatch = false;
+            for (String contactNumberPatternString: RegularExpressionPattern.getContactNumberPatternStringArrayList()) {
+                Pattern contactNumberPattern = Pattern.compile(contactNumberPatternString);
+                Matcher contactNumberMatcher = contactNumberPattern.matcher(addSupplierContactNumber.getText());
+                if (contactNumberMatcher.matches()) {
+                    patternMatch = true;
+                    break;
+                }
+            }
+            if (!patternMatch) {
+                throw new IllegalInputFormatException.ContactNumber();
+            }
+            Pattern emailAddressPattern = Pattern.compile(RegularExpressionPattern.getEmailAddressPatternString());
+            Matcher emailAddressMatcher = emailAddressPattern.matcher(addSupplierEmailAddress.getText());
+            if (!emailAddressMatcher.matches()) {
+                throw new IllegalInputFormatException.EmailAddress();
+            }
+            if (addSupplierName.getText() == null || addSupplierAddress.getText() == null || addSupplierPostCode.getText() == null ||
+                    addSupplierCountry.getText() == null || addSupplierStateOrProvince.getText() == null ||
+                    addSupplierCity.getText() == null || addSupplierContactNumber.getText() == null ||
+                    addSupplierEmailAddress.getText() == null) {
+                throw new NullValueException();
+            }
+            Supplier newSupplier = new Supplier(addSupplierName.getText(), addSupplierAddress.getText(),
+                    addSupplierPostCode.getText(), addSupplierCountry.getText(),
+                    addSupplierStateOrProvince.getText(), addSupplierCity.getText(),
+                    addSupplierContactNumber.getText(), addSupplierEmailAddress.getText());
+            Supplier.suppliers.add(newSupplier);
+            Log.supplierLogs.add(new Log("Added supplier: " + newSupplier.getName()));
+            addSupplierClearButton.fire();
+            addSupplierPaneCloseAnimation.play();
+            refreshTableView();
+        } catch (DuplicateException exception) {
+            Dialog dialog = new Dialog();
+            dialog.setContentText("Supplier name has already been used.");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+            dialog.show();
+        } catch (IllegalInputFormatException.ContactNumber exception) {
+            Dialog dialog = new Dialog();
+            dialog.setContentText("Contact number is invalid.");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+            dialog.show();
+        } catch (IllegalInputFormatException.EmailAddress exception) {
+            Dialog dialog = new Dialog();
+            dialog.setContentText("Email address is invalid.");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+            dialog.show();
+        } catch (NullValueException exception) {
+            Dialog dialog = new Dialog();
+            dialog.setContentText("All fields must be filled.");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+            dialog.show();
+        }
     }
 
     public void addSupplierClearButton_OnAction (Event event) {
@@ -222,19 +278,71 @@ public class SupplierController implements Initializable {
     }
 
     public void editSupplierSubmitButton_OnAction (Event event) {
-        Supplier selectedSupplier = supplierTableView.getSelectionModel().getSelectedItem();
-        selectedSupplier.setName(editSupplierName.getText());
-        selectedSupplier.setAddress(editSupplierAddress.getText());
-        selectedSupplier.setPostCode(editSupplierPostCode.getText());
-        selectedSupplier.setCountry(editSupplierCountry.getText());
-        selectedSupplier.setStateOrProvince(editSupplierStateOrProvince.getText());
-        selectedSupplier.setCity(editSupplierCity.getText());
-        selectedSupplier.setContactNumber(editSupplierContactNumber.getText());
-        selectedSupplier.setEmailAddress(editSupplierEmailAddress.getText());
+        try {
+            Supplier selectedSupplier = supplierTableView.getSelectionModel().getSelectedItem();
+            for (Supplier supplier: Supplier.suppliers) {
+                if (supplier.getName().equals(editSupplierName.getText()) &&
+                        !editSupplierName.getText().equals(selectedSupplier.getName())) {
+                    throw new DuplicateException();
+                }
+            }
+            boolean patternMatch = false;
+            for (String contactNumberPatternString: RegularExpressionPattern.getContactNumberPatternStringArrayList()) {
+                Pattern contactNumberPattern = Pattern.compile(contactNumberPatternString);
+                Matcher contactNumberMatcher = contactNumberPattern.matcher(editSupplierContactNumber.getText());
+                if (contactNumberMatcher.matches()) {
+                    patternMatch = true;
+                    break;
+                }
+            }
+            if (!patternMatch) {
+                throw new IllegalInputFormatException.ContactNumber();
+            }
+            Pattern emailAddressPattern = Pattern.compile(RegularExpressionPattern.getEmailAddressPatternString());
+            Matcher emailAddressMatcher = emailAddressPattern.matcher(editSupplierEmailAddress.getText());
+            if (!emailAddressMatcher.matches()) {
+                throw new IllegalInputFormatException.EmailAddress();
+            }
+            if (editSupplierName.getText() == null || editSupplierAddress.getText() == null || editSupplierPostCode.getText() == null ||
+                    editSupplierCountry.getText() == null || editSupplierStateOrProvince.getText() == null ||
+                    editSupplierCity.getText() == null || editSupplierContactNumber.getText() == null ||
+                    editSupplierEmailAddress.getText() == null) {
+                throw new NullValueException();
+            }
 
-        Log.supplierLogs.add(new Log("Edited supplier: " + selectedSupplier.getName()));
-        editSupplierPaneCloseAnimation.play();
-        refreshTableView();
+            selectedSupplier.setName(editSupplierName.getText());
+            selectedSupplier.setAddress(editSupplierAddress.getText());
+            selectedSupplier.setPostCode(editSupplierPostCode.getText());
+            selectedSupplier.setCountry(editSupplierCountry.getText());
+            selectedSupplier.setStateOrProvince(editSupplierStateOrProvince.getText());
+            selectedSupplier.setCity(editSupplierCity.getText());
+            selectedSupplier.setContactNumber(editSupplierContactNumber.getText());
+            selectedSupplier.setEmailAddress(editSupplierEmailAddress.getText());
+
+            Log.supplierLogs.add(new Log("Edited supplier: " + selectedSupplier.getName()));
+            editSupplierPaneCloseAnimation.play();
+            refreshTableView();
+        } catch (DuplicateException exception) {
+            Dialog dialog = new Dialog();
+            dialog.setContentText("Supplier name has already been used.");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+            dialog.show();
+        } catch (IllegalInputFormatException.ContactNumber exception) {
+            Dialog dialog = new Dialog();
+            dialog.setContentText("Contact number is invalid.");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+            dialog.show();
+        } catch (IllegalInputFormatException.EmailAddress exception) {
+            Dialog dialog = new Dialog();
+            dialog.setContentText("Email address is invalid.");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+            dialog.show();
+        } catch (NullValueException exception) {
+            Dialog dialog = new Dialog();
+            dialog.setContentText("All fields must be filled.");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+            dialog.show();
+        }
     }
 
     public void editSupplierClearButton_OnAction (Event event) {

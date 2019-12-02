@@ -36,136 +36,6 @@
          <right>
             <AnchorPane fx:id="actionBar" layoutX="400.0" prefHeight="502.0" prefWidth="450.0" BorderPane.alignment="CENTER">
                <children>
-                  <AnchorPane fx:id="editProductPane" layoutX="410.0" prefHeight="502.0" prefWidth="350.0" styleClass="actionPane" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="-350.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <content>
-                              <HBox prefHeight="500.0" prefWidth="298.0">
-                                 <children>
-                                    <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="125.0" spacing="10.0">
-                                       <children>
-                                          <Label prefHeight="25.0" text="Name:" />
-                                          <Label prefHeight="25.0" text="Category:" />
-                                          <Label prefHeight="25.0" text="Supplier:" />
-                                          <Label prefHeight="25.0" text="Quantity:" />
-                                          <Label prefHeight="25.0" text="Purchasing Price:" />
-                                          <Label prefHeight="25.0" text="Selling Price:" />
-                                       </children>
-                                       <HBox.margin>
-                                          <Insets left="25.0" top="25.0" />
-                                       </HBox.margin>
-                                    </VBox>
-                                    <VBox prefHeight="200.0" prefWidth="175.0" spacing="10.0">
-                                       <children>
-                                          <TextField fx:id="editProductName">
-                                             <VBox.margin>
-                                                <Insets left="15.0" right="15.0" />
-                                             </VBox.margin>
-                                          </TextField>
-                                          <ComboBox fx:id="editProductCategoryId" prefWidth="150.0">
-                                             <VBox.margin>
-                                                <Insets left="15.0" right="15.0" />
-                                             </VBox.margin>
-                                          </ComboBox>
-                                          <ComboBox fx:id="editProductSupplierId" prefWidth="150.0">
-                                             <VBox.margin>
-                                                <Insets left="15.0" right="15.0" />
-                                             </VBox.margin>
-                                          </ComboBox>
-                                          <TextField fx:id="editProductQuantity">
-                                             <VBox.margin>
-                                                <Insets left="15.0" right="15.0" />
-                                             </VBox.margin>
-                                          </TextField>
-                                          <TextField fx:id="editProductPurchasingPrice">
-                                             <VBox.margin>
-                                                <Insets left="15.0" right="15.0" />
-                                             </VBox.margin>
-                                          </TextField>
-                                          <TextField fx:id="editProductSellingPrice">
-                                             <VBox.margin>
-                                                <Insets left="15.0" right="15.0" />
-                                             </VBox.margin>
-                                          </TextField>
-                                       </children>
-                                       <HBox.margin>
-                                          <Insets right="25.0" top="25.0" />
-                                       </HBox.margin>
-                                    </VBox>
-                                 </children>
-                              </HBox>
-                           </content>
-                        </ScrollPane>
-                        <Button fx:id="editProductSubmitButton" mnemonicParsing="false" onAction="#editProductSubmitButton_OnAction" prefHeight="25.0" prefWidth="75.0" styleClass="submitButton" text="Submit" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="240.0" />
-                        <Button fx:id="editProductClearButton" mnemonicParsing="false" onAction="#editProductClearButton_OnAction" prefHeight="25.0" prefWidth="75.0" styleClass="clearButton" text="Clear" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="130.0" />
-                        <Button fx:id="editProductCancelButton" mnemonicParsing="false" onAction="#editProductCancelButton_OnAction" prefHeight="25.0" prefWidth="75.0" styleClass="cancelButton" text="Cancel" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="20.0" />
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane fx:id="addProductPane" layoutX="400.0" prefHeight="502.0" prefWidth="350.0" styleClass="actionPane" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="-350.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <content>
-                              <HBox prefHeight="500.0" prefWidth="298.0">
-                                 <children>
-                                    <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="125.0" spacing="10.0">
-                                       <children>
-                                          <Label prefHeight="25.0" text="Name:" />
-                                          <Label prefHeight="25.0" text="Category:" />
-                                          <Label prefHeight="25.0" text="Supplier:" />
-                                          <Label prefHeight="25.0" text="Quantity:" />
-                                          <Label prefHeight="25.0" text="Purchasing Price:" />
-                                          <Label prefHeight="25.0" text="Selling Price:" />
-                                       </children>
-                                       <HBox.margin>
-                                          <Insets left="25.0" top="25.0" />
-                                       </HBox.margin>
-                                    </VBox>
-                                    <VBox prefHeight="200.0" prefWidth="175.0" spacing="10.0">
-                                       <children>
-                                          <TextField fx:id="addProductName">
-                                             <VBox.margin>
-                                                <Insets left="15.0" right="15.0" />
-                                             </VBox.margin>
-                                          </TextField>
-                                          <ComboBox fx:id="addProductCategoryId" prefWidth="150.0">
-                                             <VBox.margin>
-                                                <Insets left="15.0" right="15.0" />
-                                             </VBox.margin>
-                                          </ComboBox>
-                                          <ComboBox fx:id="addProductSupplierId" prefWidth="150.0">
-                                             <VBox.margin>
-                                                <Insets left="15.0" right="15.0" />
-                                             </VBox.margin>
-                                          </ComboBox>
-                                          <TextField fx:id="addProductQuantity">
-                                             <VBox.margin>
-                                                <Insets left="15.0" right="15.0" />
-                                             </VBox.margin>
-                                          </TextField>
-                                          <TextField fx:id="addProductPurchasingPrice">
-                                             <VBox.margin>
-                                                <Insets left="15.0" right="15.0" />
-                                             </VBox.margin>
-                                          </TextField>
-                                          <TextField fx:id="addProductSellingPrice">
-                                             <VBox.margin>
-                                                <Insets left="15.0" right="15.0" />
-                                             </VBox.margin>
-                                          </TextField>
-                                       </children>
-                                       <HBox.margin>
-                                          <Insets right="25.0" top="25.0" />
-                                       </HBox.margin>
-                                    </VBox>
-                                 </children>
-                              </HBox>
-                           </content>
-                        </ScrollPane>
-                        <Button fx:id="addProductSubmitButton" mnemonicParsing="false" onAction="#addProductSubmitButton_OnAction" prefHeight="25.0" prefWidth="75.0" styleClass="submitButton" text="Submit" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="240.0" />
-                        <Button fx:id="addProductClearButton" mnemonicParsing="false" onAction="#addProductClearButton_OnAction" prefHeight="25.0" prefWidth="75.0" styleClass="clearButton" text="Clear" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="130.0" />
-                        <Button fx:id="addProductCancelButton" mnemonicParsing="false" onAction="#addProductCancelButton_OnAction" prefHeight="25.0" prefWidth="75.0" styleClass="cancelButton" text="Cancel" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="20.0" />
-                     </children>
-                  </AnchorPane>
                   <AnchorPane fx:id="categoriesPane" layoutX="410.0" layoutY="10.0" prefHeight="502.0" prefWidth="350.0" styleClass="actionPane" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="-350.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -211,6 +81,166 @@
                               </VBox>
                            </content>
                         </ScrollPane>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="addProductPane" layoutX="400.0" prefHeight="502.0" prefWidth="350.0" styleClass="actionPane" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="-350.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <content>
+                              <HBox prefHeight="500.0" prefWidth="298.0">
+                                 <children>
+                                    <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="125.0" spacing="10.0">
+                                       <children>
+                                          <Label prefHeight="25.0" text="Name:" />
+                                          <Label prefHeight="25.0" text="Category:" />
+                                          <Label prefHeight="25.0" text="Supplier:" />
+                                          <Label prefHeight="25.0" text="Quantity:" />
+                                          <Label prefHeight="25.0" text="Purchasing Price:" />
+                                          <Label prefHeight="25.0" text="Selling Price:" />
+                                          <Label prefHeight="25.0" text="Image:" />
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets left="25.0" top="25.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                    <VBox prefHeight="200.0" prefWidth="175.0" spacing="10.0">
+                                       <children>
+                                          <TextField fx:id="addProductName">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                          <ComboBox fx:id="addProductCategoryId" prefWidth="150.0">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </ComboBox>
+                                          <ComboBox fx:id="addProductSupplierId" prefWidth="150.0">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </ComboBox>
+                                          <TextField fx:id="addProductQuantity">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                          <TextField fx:id="addProductPurchasingPrice">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                          <TextField fx:id="addProductSellingPrice">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                          <ImageView fx:id="addUserImageView" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </ImageView>
+                                          <HBox prefHeight="25.0" prefWidth="200.0" spacing="10.0">
+                                             <children>
+                                                <Button fx:id="addUserUploadImageButton" mnemonicParsing="false" onAction="#addUserUploadImageButton_OnAction" prefHeight="25.0" prefWidth="70.0" text="Upload" />
+                                                <Button fx:id="addUserClearImageButton" mnemonicParsing="false" onAction="#addUserClearImageButton_OnAction" prefHeight="25.0" prefWidth="70.0" text="Clear" />
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </HBox>
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets right="25.0" top="25.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </content>
+                        </ScrollPane>
+                        <Button fx:id="addProductSubmitButton" mnemonicParsing="false" onAction="#addProductSubmitButton_OnAction" prefHeight="25.0" prefWidth="75.0" styleClass="submitButton" text="Submit" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="240.0" />
+                        <Button fx:id="addProductClearButton" mnemonicParsing="false" onAction="#addProductClearButton_OnAction" prefHeight="25.0" prefWidth="75.0" styleClass="clearButton" text="Clear" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="130.0" />
+                        <Button fx:id="addProductCancelButton" mnemonicParsing="false" onAction="#addProductCancelButton_OnAction" prefHeight="25.0" prefWidth="75.0" styleClass="cancelButton" text="Cancel" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="20.0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="editProductPane" layoutX="410.0" prefHeight="502.0" prefWidth="350.0" styleClass="actionPane" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="-350.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <content>
+                              <HBox prefHeight="500.0" prefWidth="298.0">
+                                 <children>
+                                    <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="125.0" spacing="10.0">
+                                       <children>
+                                          <Label prefHeight="25.0" text="Name:" />
+                                          <Label prefHeight="25.0" text="Category:" />
+                                          <Label prefHeight="25.0" text="Supplier:" />
+                                          <Label prefHeight="25.0" text="Quantity:" />
+                                          <Label prefHeight="25.0" text="Purchasing Price:" />
+                                          <Label prefHeight="25.0" text="Selling Price:" />
+                                          <Label prefHeight="25.0" text="Image:" />
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets left="25.0" top="25.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                    <VBox prefHeight="200.0" prefWidth="175.0" spacing="10.0">
+                                       <children>
+                                          <TextField fx:id="editProductName">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                          <ComboBox fx:id="editProductCategoryId" prefWidth="150.0">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </ComboBox>
+                                          <ComboBox fx:id="editProductSupplierId" prefWidth="150.0">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </ComboBox>
+                                          <TextField fx:id="editProductQuantity">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                          <TextField fx:id="editProductPurchasingPrice">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                          <TextField fx:id="editProductSellingPrice">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                          <ImageView fx:id="editUserImageView" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </ImageView>
+                                          <HBox prefHeight="25.0" prefWidth="200.0" spacing="10.0">
+                                             <children>
+                                                <Button fx:id="editUserUploadImageButton" mnemonicParsing="false" onAction="#editUserUploadImageButton_OnAction" prefHeight="25.0" prefWidth="70.0" text="Upload" />
+                                                <Button fx:id="editUserClearImageButton" mnemonicParsing="false" onAction="#editUserClearImageButton_OnAction" prefHeight="25.0" prefWidth="70.0" text="Clear" />
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets left="15.0" right="15.0" />
+                                             </VBox.margin>
+                                          </HBox>
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets right="25.0" top="25.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </content>
+                        </ScrollPane>
+                        <Button fx:id="editProductSubmitButton" mnemonicParsing="false" onAction="#editProductSubmitButton_OnAction" prefHeight="25.0" prefWidth="75.0" styleClass="submitButton" text="Submit" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="240.0" />
+                        <Button fx:id="editProductClearButton" mnemonicParsing="false" onAction="#editProductClearButton_OnAction" prefHeight="25.0" prefWidth="75.0" styleClass="clearButton" text="Clear" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="130.0" />
+                        <Button fx:id="editProductCancelButton" mnemonicParsing="false" onAction="#editProductCancelButton_OnAction" prefHeight="25.0" prefWidth="75.0" styleClass="cancelButton" text="Cancel" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="20.0" />
                      </children>
                   </AnchorPane>
                   <VBox alignment="TOP_CENTER" maxWidth="200.0" prefHeight="502.0" prefWidth="100.0" spacing="10.0" styleClass="actionBar" AnchorPane.bottomAnchor="90.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

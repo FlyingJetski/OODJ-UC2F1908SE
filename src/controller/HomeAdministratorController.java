@@ -194,7 +194,6 @@ public class HomeAdministratorController implements Initializable {
             FilteredList<Catalogue> filteredCatalogue = Catalogue.catalogues.filtered(catalogueUserPredicate);
             long filteredCatalogueCount = filteredCatalogue.stream().count();
             XYChart.Data filteredCatalogueBarData = new XYChart.Data(user.getUsername(), filteredCatalogueCount);
-            System.out.println(filteredCatalogueBarData);
             catalogueInfoData.getData().add(filteredCatalogueBarData);
         }
         catalogueInfoBarChart.getData().add(catalogueInfoData);
@@ -202,8 +201,6 @@ public class HomeAdministratorController implements Initializable {
             barData.getNode().setOnMousePressed((MouseEvent event) -> {
                 Predicate<Catalogue> filteredCatalogue = catalogue -> catalogue.getUserUsername().
                         equals(barData.getXValue());
-                System.out.println(barData.getXValue());
-                System.out.println(Catalogue.catalogues.filtered(filteredCatalogue));
                 catalogueInfoTableView.setItems(Catalogue.catalogues.filtered(filteredCatalogue));
             });
         }

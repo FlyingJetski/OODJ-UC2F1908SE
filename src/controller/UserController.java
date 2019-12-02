@@ -13,7 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import model.Authentication;
+import model.*;
 import model.objects.Administrator;
 import model.objects.Product_Manager;
 import model.objects.User;
@@ -25,6 +25,8 @@ import java.security.spec.InvalidKeySpecException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class UserController implements Initializable {
     private static User selectedUserToView = null;
@@ -109,7 +111,7 @@ public class UserController implements Initializable {
                         e.printStackTrace();
                     }
                     viewStage.setWidth(400);
-                    viewStage.setHeight(400);
+                    viewStage.setHeight(350);
                     viewStage.setTitle("User View");
                     viewStage.setResizable(false);
                     viewStage.show();
@@ -129,22 +131,71 @@ public class UserController implements Initializable {
     }
 
     public void addUserSubmitButton_OnAction (Event event) throws IOException, InvalidKeySpecException, NoSuchAlgorithmException {
-        if (addUserRole.getValue().toString().equals("Product Manager")) {
-            User newUser = new Product_Manager (addUserUsername.getText(),
-                    Authentication.toHashString(addUserUsername.getText(), addUserPassword.getText().toCharArray()),
-                    addUserName.getText(), addUserAddress.getText(),
-                    addUserContactNumber.getText(), addUserEmailAddress.getText());
-            User.users.add(newUser);
-        } else if (addUserRole.getValue().toString().equals("Administrator")) {
-            User newUser = new Administrator (addUserUsername.getText(),
-                    Authentication.toHashString(addUserUsername.getText(), addUserPassword.getText().toCharArray()),
-                    addUserName.getText(), addUserAddress.getText(),
-                    addUserContactNumber.getText(), addUserEmailAddress.getText());
-            User.users.add(newUser);
+        try {
+            for (User user: User.users) {
+                if (user.getUsername().equals(addUserUsername.getText())) {
+                    throw new DuplicateException();
+                }
+            }
+            boolean patternMatch = false;
+            for (String contactNumberPatternString: RegularExpressionPattern.getContactNumberPatternStringArrayList()) {
+                Pattern contactNumberPattern = Pattern.compile(contactNumberPatternString);
+                Matcher contactNumberMatcher = contactNumberPattern.matcher(addUserContactNumber.getText());
+                if (contactNumberMatcher.matches()) {
+                    patternMatch = true;
+                    break;
+                }
+            }
+            if (!patternMatch) {
+                throw new IllegalInputFormatException.ContactNumber();
+            }
+            Pattern emailAddressPattern = Pattern.compile(RegularExpressionPattern.getEmailAddressPatternString());
+            Matcher emailAddressMatcher = emailAddressPattern.matcher(addUserEmailAddress.getText());
+            if (!emailAddressMatcher.matches()) {
+                throw new IllegalInputFormatException.EmailAddress();
+            }
+
+            if (addUserUsername.getText() == null || addUserPassword.getText() == null || addUserName.getText() == null ||
+                    addUserAddress == null || addUserContactNumber == null || addUserEmailAddress == null) {
+                throw new NullValueException();
+            }
+            if (addUserRole.getValue().toString().equals("Product Manager")) {
+                User newUser = new Product_Manager (addUserUsername.getText(),
+                        Authentication.toHashString(addUserUsername.getText(), addUserPassword.getText().toCharArray()),
+                        addUserName.getText(), addUserAddress.getText(),
+                        addUserContactNumber.getText(), addUserEmailAddress.getText());
+                User.users.add(newUser);
+            } else if (addUserRole.getValue().toString().equals("Administrator")) {
+                User newUser = new Administrator (addUserUsername.getText(),
+                        Authentication.toHashString(addUserUsername.getText(), addUserPassword.getText().toCharArray()),
+                        addUserName.getText(), addUserAddress.getText(),
+                        addUserContactNumber.getText(), addUserEmailAddress.getText());
+                User.users.add(newUser);
+            }
+            addUserClearButton.fire();
+            addUserPaneCloseAnimation.play();
+            refreshTableView();
+        } catch (DuplicateException exception) {
+            Dialog dialog = new Dialog();
+            dialog.setContentText("Username has already been used.");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+            dialog.show();
+        } catch (IllegalInputFormatException.ContactNumber exception) {
+            Dialog dialog = new Dialog();
+            dialog.setContentText("Contact number is invalid.");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+            dialog.show();
+        } catch (IllegalInputFormatException.EmailAddress exception) {
+            Dialog dialog = new Dialog();
+            dialog.setContentText("Email address is invalid.");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+            dialog.show();
+        } catch (NullValueException exception) {
+            Dialog dialog = new Dialog();
+            dialog.setContentText("All fields must be filled.");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+            dialog.show();
         }
-        addUserClearButton.fire();
-        addUserPaneCloseAnimation.play();
-        refreshTableView();
     }
 
     public void addUserClearButton_OnAction (Event event) {
@@ -155,6 +206,7 @@ public class UserController implements Initializable {
         addUserAddress.setText(null);
         addUserContactNumber.setText(null);
         addUserEmailAddress.setText(null);
+
     }
 
     public void addUserCancelButton_OnAction (Event event) {
@@ -214,7 +266,9 @@ public class UserController implements Initializable {
             if (selectedUser == null) {
                 throw new NullPointerException();
             }
-
+            if (selectedUser.getRole().equals("Administrator")) {
+                throw new InsufficientPrivilegeException();
+            }
             TextInputDialog resetPasswordDialog = new TextInputDialog();
             resetPasswordDialog.setTitle("Reset password");
             resetPasswordDialog.setContentText("New password:");
@@ -238,6 +292,11 @@ public class UserController implements Initializable {
         } catch (NullPointerException exception) {
             Dialog dialog = new Dialog();
             dialog.setContentText("User must be selected.");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+            dialog.show();
+        } catch (InsufficientPrivilegeException exception) {
+            Dialog dialog = new Dialog();
+            dialog.setContentText("You cannot reset another administrator's password.");
             dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
             dialog.show();
         } catch (NoSuchAlgorithmException e) {

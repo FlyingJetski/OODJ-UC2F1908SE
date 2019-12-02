@@ -1,23 +1,31 @@
 package controller;
 
 import javafx.animation.TranslateTransition;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
-import model.objects.Log;
-import model.objects.Category;
-import model.objects.Product;
-import model.objects.Product_Manager;
-import model.objects.Supplier;
+import model.DuplicateException;
+import model.IOWriterReader;
+import model.NullValueException;
+import model.UtilisedException;
+import model.objects.*;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -29,7 +37,6 @@ public class ProductController implements Initializable {
     @FXML AnchorPane categoriesPane;
     @FXML AnchorPane addProductPane;
     @FXML AnchorPane editProductPane;
-    @FXML AnchorPane deleteProductPane;
 
     @FXML ComboBox searchComboBox;
     @FXML TextField searchText;
@@ -56,6 +63,7 @@ public class ProductController implements Initializable {
     @FXML TextField addProductQuantity;
     @FXML TextField addProductPurchasingPrice;
     @FXML TextField addProductSellingPrice;
+    @FXML ImageView addUserImageView;
 
     @FXML TextField editProductName;
     @FXML ComboBox<Category> editProductCategoryId;
@@ -63,8 +71,10 @@ public class ProductController implements Initializable {
     @FXML TextField editProductQuantity;
     @FXML TextField editProductPurchasingPrice;
     @FXML TextField editProductSellingPrice;
+    @FXML ImageView editUserImageView;
 
     @FXML Button addProductClearButton;
+    @FXML Button editProductClearButton;
     @FXML Button viewLogButton;
 
     // Setting up animation destination, duration, and object
@@ -125,7 +135,7 @@ public class ProductController implements Initializable {
                         e.printStackTrace();
                     }
                     viewStage.setWidth(400);
-                    viewStage.setHeight(400);
+                    viewStage.setHeight(550);
                     viewStage.setTitle("Product View");
                     viewStage.setResizable(false);
                     viewStage.show();
@@ -235,10 +245,22 @@ public class ProductController implements Initializable {
     }
 
     public void categoriesCategoryDeleteButton_OnAction(Event event) throws IOException {
-        Category selectedCategory = categoriesCategoryTableView.getSelectionModel().getSelectedItem();
-        Log.productLogs.add(new Log("Deleted category: " + selectedCategory.getCategoryName()));
-        Category.categories.remove(selectedCategory);
-        refreshCategoryTableView();
+        try {
+            Category selectedCategory = categoriesCategoryTableView.getSelectionModel().getSelectedItem();
+            for (Product product: Product.products) {
+                if (product.getCategoryId() == selectedCategory.getCategoryId()) {
+                    throw new UtilisedException();
+                }
+            }
+            Log.productLogs.add(new Log("Deleted category: " + selectedCategory.getCategoryName()));
+            Category.categories.remove(selectedCategory);
+            refreshCategoryTableView();
+        } catch (UtilisedException exception) {
+            Dialog dialog = new Dialog();
+            dialog.setContentText("Category is being used by a product.");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+            dialog.show();
+        }
     }
 
     public void categoriesCategoryTableView_OnSelect(Event event) {
@@ -254,17 +276,64 @@ public class ProductController implements Initializable {
         else {
             addProductPaneCloseAnimation.play();
         }
+        if (addUserImageView.getImage() == null) {
+            Image placeholderImage = new Image("/images/Product_Image_Placeholder.png");
+            addUserImageView.setImage(placeholderImage);
+        }
+    }
+
+    public void addUserUploadImageButton_OnAction (Event event) {
+        Stage mainStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        final FileChooser fileChooser = new FileChooser();
+        File imageFile = fileChooser.showOpenDialog(mainStage);
+        Image image = new Image(imageFile.toURI().toString());
+        addUserImageView.setImage(image);
+    }
+
+    public void addUserClearImageButton_OnAction (Event event) {
+        addUserImageView.setImage(null);
     }
 
     public void addProductSubmitButton_OnAction (Event event) throws IOException {
-        Product newProduct = new Product(addProductName.getText(), Integer.parseInt(addProductCategoryId.getValue().toString().split("\\|")[0]),
-                Integer.parseInt(addProductSupplierId.getValue().toString().split("\\|")[0]), Integer.parseInt(addProductQuantity.getText()),
-                Double.parseDouble(addProductPurchasingPrice.getText()), Double.parseDouble(addProductSellingPrice.getText()));
-        Product.products.add(newProduct);
-        Log.productLogs.add(new Log("Added product: " + newProduct.getName()));
-        addProductClearButton.fire();
-        addProductPaneCloseAnimation.play();
-        refreshTableView();
+        try {
+            for (Product product: Product.products) {
+                if (product.getName().equals(addProductName.getText())) {
+                    throw new DuplicateException();
+                }
+            }
+            if (addProductName.getText() == null || addProductCategoryId.getValue() == null || addProductSupplierId.getValue() == null ||
+                    addProductQuantity.getText() == null || addProductPurchasingPrice.getText() == null || addProductSellingPrice.getText() == null) {
+                throw new NullValueException();
+            }
+            Product newProduct = new Product(addProductName.getText(), Integer.parseInt(addProductCategoryId.getValue().toString().split("\\|")[0]),
+                    Integer.parseInt(addProductSupplierId.getValue().toString().split("\\|")[0]), Integer.parseInt(addProductQuantity.getText()),
+                    Double.parseDouble(addProductPurchasingPrice.getText()), Double.parseDouble(addProductSellingPrice.getText()));
+            Product.products.add(newProduct);
+            Log.productLogs.add(new Log("Added product: " + newProduct.getName()));
+
+            BufferedImage bufferedImage = SwingFXUtils.fromFXImage(addUserImageView.getImage(), null);
+            File outputFile = new File(IOWriterReader.productImagesDirectory + newProduct.getProductId());
+            ImageIO.write(bufferedImage, "jpg", outputFile);
+
+            addProductClearButton.fire();
+            addProductPaneCloseAnimation.play();
+            refreshTableView();
+        } catch (DuplicateException exception) {
+            Dialog dialog = new Dialog();
+            dialog.setContentText("Product name has already been used.");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+            dialog.show();
+        } catch (NumberFormatException exception) {
+            Dialog dialog = new Dialog();
+            dialog.setContentText("Quantity and prices must be a number.");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+            dialog.show();
+        } catch (NullValueException exception) {
+            Dialog dialog = new Dialog();
+            dialog.setContentText("All fields except image must be filled.");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+            dialog.show();
+        }
     }
 
     public void addProductClearButton_OnAction (Event event) {
@@ -274,6 +343,7 @@ public class ProductController implements Initializable {
         addProductQuantity.setText(null);
         addProductPurchasingPrice.setText(null);
         addProductSellingPrice.setText(null);
+        addUserImageView.setImage(null);
     }
 
     public void addProductCancelButton_OnAction (Event event) {
@@ -304,10 +374,16 @@ public class ProductController implements Initializable {
             editProductQuantity.setText(String.valueOf(selectedProduct.getQuantity()));
             editProductPurchasingPrice.setText(String.valueOf(selectedProduct.getPurchasingPrice()));
             editProductSellingPrice.setText(String.valueOf(selectedProduct.getSellingPrice()));
+            try {
+                Image loadedImage = new Image("/data/product images/" + selectedProduct.getProductId());
+                editUserImageView.setImage(loadedImage);
+            } catch (IllegalArgumentException exception) {
+                Image placeholderImage = new Image("/images/Product_Image_Placeholder.png");
+                editUserImageView.setImage(placeholderImage);
+            }
 
-            Log.productLogs.add(new Log("Edited product: " + selectedProduct.getName()));
             editProductPaneCloseAnimation.play();
-        }  catch (NullPointerException exception) {
+        } catch (NullPointerException exception) {
             Dialog dialog = new Dialog();
             dialog.setContentText("Product must be selected.");
             dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
@@ -315,19 +391,64 @@ public class ProductController implements Initializable {
         }
     }
 
+    public void editUserUploadImageButton_OnAction (Event event) {
+        Stage mainStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        final FileChooser fileChooser = new FileChooser();
+        File imageFile = fileChooser.showOpenDialog(mainStage);
+        Image image = new Image(imageFile.toURI().toString());
+        editUserImageView.setImage(image);
+    }
 
+    public void editUserClearImageButton_OnAction (Event event) {
+        editUserImageView.setImage(null);
+    }
 
     public void editProductSubmitButton_OnAction (Event event) {
-        Product selectedProduct = productTableView.getSelectionModel().getSelectedItem();
-        selectedProduct.setName(editProductName.getText());
-        selectedProduct.setCategoryId(Integer.parseInt(editProductCategoryId.getValue().toString().split("\\|")[0]));
-        selectedProduct.setSupplierId(Integer.parseInt(editProductSupplierId.getValue().toString().split("\\|")[0]));
-        selectedProduct.setQuantity(Integer.parseInt(editProductQuantity.getText()));
-        selectedProduct.setPurchasingPrice(Double.parseDouble(editProductPurchasingPrice.getText()));
-        selectedProduct.setSellingPrice(Double.parseDouble(editProductSellingPrice.getText()));
+        try {
+            Product selectedProduct = productTableView.getSelectionModel().getSelectedItem();
+            for (Product product: Product.products) {
+                if (product.getName().equals(editProductName.getText()) &&
+                        !editProductName.getText().equals(selectedProduct.getName())) {
+                    throw new DuplicateException();
+                }
+            }
+            if (editProductName.getText() == null || editProductCategoryId.getValue() == null || editProductSupplierId.getValue() == null ||
+                    editProductQuantity.getText() == null || editProductPurchasingPrice.getText() == null || editProductSellingPrice.getText() == null) {
+                throw new NullValueException();
+            }
+            selectedProduct.setName(editProductName.getText());
+            selectedProduct.setCategoryId(Integer.parseInt(editProductCategoryId.getValue().toString().split("\\|")[0]));
+            selectedProduct.setSupplierId(Integer.parseInt(editProductSupplierId.getValue().toString().split("\\|")[0]));
+            selectedProduct.setQuantity(Integer.parseInt(editProductQuantity.getText()));
+            selectedProduct.setPurchasingPrice(Double.parseDouble(editProductPurchasingPrice.getText()));
+            selectedProduct.setSellingPrice(Double.parseDouble(editProductSellingPrice.getText()));
+            Log.productLogs.add(new Log("Edited product: " + selectedProduct.getName()));
 
-        editProductPaneCloseAnimation.play();
-        refreshTableView();
+            BufferedImage bufferedImage = SwingFXUtils.fromFXImage(editUserImageView.getImage(), null);
+            File outputFile = new File(IOWriterReader.productImagesDirectory + selectedProduct.getProductId());
+            ImageIO.write(bufferedImage, "jpg", outputFile);
+
+            editProductClearButton.fire();
+            editProductPaneCloseAnimation.play();
+            refreshTableView();
+        } catch (DuplicateException exception) {
+            Dialog dialog = new Dialog();
+            dialog.setContentText("Product name has already been used.");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+            dialog.show();
+        } catch (NumberFormatException exception) {
+            Dialog dialog = new Dialog();
+            dialog.setContentText("Quantity and prices must be a number.");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+            dialog.show();
+        } catch (NullValueException exception) {
+            Dialog dialog = new Dialog();
+            dialog.setContentText("All fields must be filled.");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+            dialog.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void editProductClearButton_OnAction (Event event) {
@@ -337,6 +458,7 @@ public class ProductController implements Initializable {
         editProductQuantity.setText(null);
         editProductPurchasingPrice.setText(null);
         editProductSellingPrice.setText(null);
+        editUserImageView.setImage(null);
     }
 
     public void editProductCancelButton_OnAction (Event event) {
@@ -355,14 +477,23 @@ public class ProductController implements Initializable {
             confirmationPopup.showAndWait();
 
             if (confirmationPopup.getResult() == ButtonType.YES) {
+                for (Catalogue catalogue: Catalogue.catalogues) {
+                    if (catalogue.getProductsId().contains(selectedProduct.getProductId())) {
+                        throw new UtilisedException();
+                    }
+                }
                 Product.products.remove(selectedProduct);
+                Log.productLogs.add(new Log("Deleted product: " + selectedProduct.getName()));
             }
-
-            Log.productLogs.add(new Log("Deleted product: " + selectedProduct.getName()));
             refreshTableView();
         } catch (NullPointerException exception) {
             Dialog dialog = new Dialog();
             dialog.setContentText("Product must be selected.");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+            dialog.show();
+        } catch (UtilisedException exception) {
+            Dialog dialog = new Dialog();
+            dialog.setContentText("Product is being used in a catalogue.");
             dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
             dialog.show();
         }

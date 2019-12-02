@@ -17,6 +17,7 @@ public class IOWriterReader {
 
     public static final String directoryName = System.getProperty("user.dir");
     public static final String dataDirectory = directoryName + "\\src\\data\\";
+    public static final String productImagesDirectory = dataDirectory + "product images\\";
     public static final String resourcesDirectory = directoryName + "\\src\\resources\\";
     public static final File idFile = new File(dataDirectory+ "ID.txt");
     public static final File userFile = new File(dataDirectory+ "User.txt");

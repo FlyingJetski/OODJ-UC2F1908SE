@@ -1,5 +1,6 @@
 package controller;
 
+import com.sun.media.jfxmediaimpl.platform.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.Authentication;
 import model.IOWriterReader;
+import model.InsufficientPrivilegeException;
 import model.objects.Log;
 import model.objects.User;
 
@@ -37,6 +39,9 @@ public class LoginController {
     public void confirmButton_OnAction(Event event) throws IOException, InvalidKeySpecException, NoSuchAlgorithmException {
         try {
             instance = Authentication.login(usernameText.getText(), passwordText.getText());
+            if (!instance.getStatus()) {
+                throw new InsufficientPrivilegeException();
+            }
             Log.loginLogs.add(new Log("Logged in"));
 
             Parent navigationFXML = FXMLLoader.load(getClass().getResource("/view/Navigation.fxml"));
@@ -71,11 +76,11 @@ public class LoginController {
             dialog.setContentText("Username or password is empty.");
             dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
             dialog.show();
+        } catch (InsufficientPrivilegeException exception) {
+            Dialog dialog = new Dialog();
+            dialog.setContentText("User is deactivated. Please contact your administrator for further information");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+            dialog.show();
         }
-    }
-
-    @FXML
-    public void forgotPasswordButton_OnAction(Event e){
-        System.out.println("Button2 clicked");
     }
 }

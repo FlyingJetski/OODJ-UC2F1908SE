@@ -3,6 +3,8 @@ package controller;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.StringConverter;
 import model.objects.Category;
@@ -28,6 +30,7 @@ public class ViewController implements Initializable {
     @FXML TextField viewProductPurchasingPrice;
     @FXML TextField viewProductSellingPrice;
     @FXML TextField viewProductProfitMargin;
+    @FXML ImageView viewProductImageView;
 
     /*@FXML TextField viewCatalogueName;
     @FXML ComboBox<Product> viewCatalogueProducts;
@@ -110,6 +113,13 @@ public class ViewController implements Initializable {
                 viewProductPurchasingPrice.setText(String.valueOf(selectedProduct.getPurchasingPrice()));
                 viewProductSellingPrice.setText(String.valueOf(selectedProduct.getSellingPrice()));
                 viewProductProfitMargin.setText(String.valueOf(selectedProduct.getProfitMargin()));
+                try {
+                    Image loadedImage = new Image("/data/product images/" + selectedProduct.getProductId());
+                    viewProductImageView.setImage(loadedImage);
+                } catch (IllegalArgumentException exception) {
+                    Image placeholderImage = new Image("/images/Product_Image_Placeholder.png");
+                    viewProductImageView.setImage(placeholderImage);
+                }
                 productView.toFront();
                 break;
 

@@ -5,18 +5,27 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
 import model.DuplicateException;
+import model.NullValueException;
 import model.objects.Log;
 import model.objects.*;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -206,24 +215,64 @@ public class CatalogueController implements Initializable {
     }
 
     public void addCatalogueSubmitButton_OnAction (Event event) {
-        List<Integer> nameData = new ArrayList<>();
-        for (Product product : addCatalogueSelectedProducts.getItems()) {
-            nameData.add(product.getProductId());
-        }
+        try {
+            for (Catalogue catalogue: Catalogue.catalogues) {
+                if (catalogue.getName().equals(addCatalogueName.getText())) {
+                    throw new DuplicateException();
+                }
+            }
+            if (addCatalogueStartingDate.getValue() == null || addCatalogueEndingDate.getValue() == null) {
+                throw new NullValueException.Date();
+            }
 
-        List<Double> discountData = new ArrayList<>();
-        for (Product product : addCatalogueSelectedProducts.getItems()) {
-            discountData.add(product.getDiscount());
-        }
+            List<Integer> nameData = new ArrayList<>();
+            for (Product product : addCatalogueSelectedProducts.getItems()) {
+                nameData.add(product.getProductId());
+            }
 
-        Catalogue newCatalogue = new Catalogue(addCatalogueName.getText(), nameData, discountData,
-                addCatalogueStartingDate.getValue(), addCatalogueEndingDate.getValue(), addCatalogueDescription.getText()
-        );
-        Catalogue.catalogues.add(newCatalogue);
-        Log.productLogs.add(new Log("Added catalogue: " + newCatalogue.getName()));
-        addCatalogueClearButton.fire();
-        addCataloguePaneCloseAnimation.play();
-        refreshTableView();
+            List<Double> discountData = new ArrayList<>();
+            for (Product product : addCatalogueSelectedProducts.getItems()) {
+                discountData.add(product.getDiscount());
+            }
+
+            if (nameData == null) {
+                throw new NullValueException.Product();
+            }
+
+            if (addCatalogueName.getText() == null || nameData == null || discountData == null ||
+                    addCatalogueStartingDate.getValue() == null || addCatalogueEndingDate.getValue() == null ||
+                    addCatalogueDescription.getText() == null) {
+                throw new NullValueException();
+            }
+            Catalogue newCatalogue = new Catalogue(addCatalogueName.getText(), nameData, discountData,
+                    addCatalogueStartingDate.getValue(), addCatalogueEndingDate.getValue(), addCatalogueDescription.getText()
+            );
+            Catalogue.catalogues.add(newCatalogue);
+            Log.catalogueLogs.add(new Log("Added catalogue: " + newCatalogue.getName()));
+            addCatalogueClearButton.fire();
+            addCataloguePaneCloseAnimation.play();
+            refreshTableView();
+        } catch (DuplicateException exception) {
+            Dialog dialog = new Dialog();
+            dialog.setContentText("Catalogue name has already been used.");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+            dialog.show();
+        } catch (NullValueException.Date exception) {
+            Dialog dialog = new Dialog();
+            dialog.setContentText("Starting and ending date must be a date.");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+            dialog.show();
+        } catch (NullValueException.Product exception) {
+            Dialog dialog = new Dialog();
+            dialog.setContentText("There must be selected products.");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+            dialog.show();
+        } catch (NullValueException exception) {
+            Dialog dialog = new Dialog();
+            dialog.setContentText("All fields must be filled.");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+            dialog.show();
+        }
     }
 
     public void addCatalogueClearButton_OnAction (Event event) {
@@ -324,29 +373,70 @@ public class CatalogueController implements Initializable {
     }
 
     public void editCatalogueSubmitButton_OnAction (Event event) {
-        Catalogue selectedCatalogue = catalogueTableView.getSelectionModel().getSelectedItem();
+        try {
+            Catalogue selectedCatalogue = catalogueTableView.getSelectionModel().getSelectedItem();
+            for (Catalogue catalogue: Catalogue.catalogues) {
+                if (catalogue.getName().equals(editCatalogueName.getText()) &&
+                        !editCatalogueName.getText().equals(selectedCatalogue.getName())) {
+                    throw new DuplicateException();
+                }
+            }
+            if (editCatalogueStartingDate.getValue() == null || editCatalogueEndingDate.getValue() == null) {
+                throw new NullValueException.Date();
+            }
 
-        List<Integer> nameData = new ArrayList<>();
-        for (Product product : editCatalogueSelectedProducts.getItems()) {
-            nameData.add(product.getProductId());
+            List<Integer> nameData = new ArrayList<>();
+            for (Product product : editCatalogueSelectedProducts.getItems()) {
+                nameData.add(product.getProductId());
+            }
+
+            List<Double> discountData = new ArrayList<>();
+            for (Product product : editCatalogueSelectedProducts.getItems()) {
+                discountData.add(product.getDiscount());
+            }
+
+            if (nameData == null) {
+                throw new NullValueException.Product();
+            }
+
+            if (editCatalogueName.getText() == null || nameData == null || discountData == null ||
+                    editCatalogueStartingDate.getValue() == null || editCatalogueEndingDate.getValue() == null ||
+                    editCatalogueDescription.getText() == null) {
+                throw new NullValueException();
+            }
+
+            selectedCatalogue.setName(editCatalogueName.getText());
+            selectedCatalogue.setProductsId(nameData);
+            selectedCatalogue.setProductsDiscount(discountData);
+            selectedCatalogue.setDateStart(editCatalogueStartingDate.getValue());
+            selectedCatalogue.setDateEnd(editCatalogueEndingDate.getValue());
+            selectedCatalogue.setDescription(editCatalogueDescription.getText());
+
+            Log.catalogueLogs.add(new Log("Edited catalogue: " + selectedCatalogue.getName()));
+            editCatalogueClearButton.fire();
+            editCataloguePaneCloseAnimation.play();
+            refreshTableView();
+        } catch (DuplicateException exception) {
+            Dialog dialog = new Dialog();
+            dialog.setContentText("Catalogue name has already been used.");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+            dialog.show();
+        } catch (NullValueException.Date exception) {
+            Dialog dialog = new Dialog();
+            dialog.setContentText("Starting and ending date must be a date.");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+            dialog.show();
+        } catch (NullValueException.Product exception) {
+            Dialog dialog = new Dialog();
+            dialog.setContentText("There must be selected products.");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+            dialog.show();
+        } catch (NullValueException exception) {
+            Dialog dialog = new Dialog();
+            dialog.setContentText("All fields must be filled.");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+            dialog.show();
         }
-
-        List<Double> discountData = new ArrayList<>();
-        for (Product product : editCatalogueSelectedProducts.getItems()) {
-            discountData.add(product.getDiscount());
-        }
-
-        selectedCatalogue.setName(editCatalogueName.getText());
-        selectedCatalogue.setProductsId(nameData);
-        selectedCatalogue.setProductsDiscount(discountData);
-        selectedCatalogue.setDateStart(editCatalogueStartingDate.getValue());
-        selectedCatalogue.setDateEnd(editCatalogueEndingDate.getValue());
-        selectedCatalogue.setDescription(editCatalogueDescription.getText());
-
-        Log.productLogs.add(new Log("Edited catalogue: " + selectedCatalogue.getName()));
-        editCatalogueClearButton.fire();
-        editCataloguePaneCloseAnimation.play();
-        refreshTableView();
     }
 
     public void editCatalogueClearButton_OnAction (Event event) {
@@ -388,8 +478,50 @@ public class CatalogueController implements Initializable {
         }
     }
 
-    public void exportCatalogueButton_OnAction (Event event) {
+    public void exportCatalogueButton_OnAction (Event event) throws IOException {
+        Catalogue selectedCatalogue = catalogueTableView.getSelectionModel().getSelectedItem();
+        PDDocument document = new PDDocument();
+        PDPage page = new PDPage();
+        PDPageContentStream content = new PDPageContentStream(document, page);
 
+        content.beginText();
+        content.setFont(PDType1Font.COURIER, 18);
+        content.setLeading(14.5f);
+        content.newLineAtOffset(25, 700);
+
+        content.showText(selectedCatalogue.getName());
+        content.newLine();
+
+        content.showText(selectedCatalogue.getDescription());
+        content.newLine();
+
+        int productsIndexCount = 0;
+        for (Integer productId: selectedCatalogue.getProductsId()) {
+            Predicate<Product> productPredicate = product -> product.getProductId() == productId;
+            String productName = Product.products.filtered(productPredicate).get(0).getName();
+            content.showText(productName + selectedCatalogue.getProductsDiscount().get(productsIndexCount) + "% OFF");
+            content.newLine();
+            productsIndexCount++;
+        }
+
+        content.showText("ONLY FROM");
+        content.newLine();
+        content.showText(selectedCatalogue.getDateStart().toString());
+        content.newLine();
+        content.showText("UNTIL");
+        content.newLine();
+        content.showText(selectedCatalogue.getDateEnd().toString() + "!!");
+        content.newLine();
+        content.endText();
+        content.close();
+
+        document.addPage(page);
+
+        Stage mainStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        final DirectoryChooser directoryChooser = new DirectoryChooser();
+        File exportDirectory = directoryChooser.showDialog(mainStage);
+
+        document.save(exportDirectory + "/" + selectedCatalogue.getName() + ".pdf");
     }
 
     public void viewLogButton_OnAction (Event event) throws IOException {

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -9,13 +10,14 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewController">
    <children>
+      <AnchorPane fx:id="catalogueView" layoutX="135.0" layoutY="24.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <AnchorPane fx:id="productView" layoutX="125.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <content>
                   <HBox alignment="CENTER" prefHeight="500.0" prefWidth="298.0">
                      <children>
-                        <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="125.0" spacing="10.0">
+                        <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="125.0" spacing="10.0">
                            <children>
                               <Label prefHeight="25.0" text="ID:" />
                               <Label prefHeight="25.0" text="Name:" />
@@ -25,12 +27,13 @@
                               <Label prefHeight="25.0" text="Purchasing Price:" />
                               <Label prefHeight="25.0" text="Selling Price:" />
                               <Label prefHeight="25.0" text="Profit Margin:" />
+                              <Label prefHeight="25.0" text="Image:" />
                            </children>
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
                         </VBox>
-                        <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="175.0" spacing="10.0">
+                        <VBox prefHeight="200.0" prefWidth="175.0" spacing="10.0">
                            <children>
                               <TextField fx:id="viewProductId" disable="true">
                                  <VBox.margin>
@@ -72,6 +75,11 @@
                                     <Insets left="15.0" right="15.0" />
                                  </VBox.margin>
                               </TextField>
+                              <ImageView fx:id="viewProductImageView" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" />
+                                 </VBox.margin>
+                              </ImageView>
                            </children>
                            <HBox.margin>
                               <Insets />
@@ -80,6 +88,9 @@
                      </children>
                   </HBox>
                </content>
+               <padding>
+                  <Insets top="20.0" />
+               </padding>
             </ScrollPane>
          </children>
       </AnchorPane>
@@ -89,7 +100,7 @@
                <content>
                   <HBox alignment="CENTER" prefHeight="500.0" prefWidth="298.0">
                      <children>
-                        <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="125.0" spacing="10.0">
+                        <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="125.0" spacing="10.0">
                            <children>
                               <Label prefHeight="25.0" text="ID:" />
                               <Label prefHeight="25.0" text="Name:" />
@@ -106,7 +117,7 @@
                               <Insets />
                            </HBox.margin>
                         </VBox>
-                        <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="175.0" spacing="10.0">
+                        <VBox prefHeight="200.0" prefWidth="175.0" spacing="10.0">
                            <children>
                               <TextField fx:id="viewSupplierId" disable="true">
                                  <VBox.margin>
@@ -166,21 +177,22 @@
                      </children>
                   </HBox>
                </content>
+               <padding>
+                  <Insets top="20.0" />
+               </padding>
             </ScrollPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="catalogueView" layoutX="135.0" layoutY="24.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <AnchorPane fx:id="userView" layoutX="155.0" layoutY="44.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <content>
                   <HBox alignment="CENTER" prefHeight="500.0" prefWidth="298.0">
                      <children>
-                        <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="125.0" spacing="10.0">
+                        <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="125.0" spacing="10.0">
                            <children>
                               <Label prefHeight="25.0" text="ID:" />
                               <Label prefHeight="25.0" text="Username:" />
-                              <Label prefHeight="25.0" text="Password:" />
                               <Label prefHeight="25.0" text="Role:" />
                               <Label prefHeight="25.0" text="Name:" />
                               <Label prefHeight="25.0" text="Address:" />
@@ -192,7 +204,7 @@
                               <Insets />
                            </HBox.margin>
                         </VBox>
-                        <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="175.0" spacing="10.0">
+                        <VBox prefHeight="200.0" prefWidth="175.0" spacing="10.0">
                            <children>
                               <TextField fx:id="viewUserId" disable="true">
                                  <VBox.margin>
@@ -204,11 +216,6 @@
                                     <Insets left="15.0" right="15.0" />
                                  </VBox.margin>
                               </TextField>
-                              <PasswordField fx:id="viewUserPassword" disable="true">
-                                 <VBox.margin>
-                                    <Insets left="15.0" right="15.0" />
-                                 </VBox.margin>
-                              </PasswordField>
                               <ComboBox fx:id="viewUserRole" disable="true" prefWidth="150.0">
                                  <VBox.margin>
                                     <Insets left="15.0" right="15.0" />
@@ -247,6 +254,9 @@
                      </children>
                   </HBox>
                </content>
+               <padding>
+                  <Insets top="20.0" />
+               </padding>
             </ScrollPane>
          </children>
       </AnchorPane>
