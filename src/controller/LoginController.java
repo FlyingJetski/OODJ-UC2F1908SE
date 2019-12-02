@@ -47,15 +47,6 @@ public class LoginController {
             Parent navigationFXML = FXMLLoader.load(getClass().getResource("/view/Navigation.fxml"));
             Scene navigationScene = new Scene(navigationFXML);
 
-            /*navigationScene.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
-                public void handle(KeyEvent ke) {
-                    if (ke.getCode() == KeyCode.ESCAPE) {
-                        System.out.println("Key Pressed: " + ke.getCode());
-                        ke.consume(); // <-- stops passing the event to next node
-                    }
-                }
-            });*/
-
             Stage mainStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             mainStage.setOnCloseRequest(closeEvent -> {
                 try {

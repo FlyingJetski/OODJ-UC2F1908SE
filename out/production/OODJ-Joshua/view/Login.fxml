@@ -24,8 +24,7 @@
         </VBox>
         <HBox alignment="CENTER" prefHeight="54.0" prefWidth="253.0" spacing="10.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="3">
           <children>
-            <Button fx:id="confirmButton" defaultButton="true" mnemonicParsing="false" onAction="#confirmButton_OnAction" prefHeight="24.0" text="Confirm" />
-            <Button fx:id="forgotPasswordButton" graphicTextGap="4.0" mnemonicParsing="false" onAction="#forgotPasswordButton_OnAction" prefHeight="24.0" prefWidth="136.6666259765625" text="I forgot my password" wrapText="false" />
+            <Button fx:id="confirmButton" defaultButton="true" mnemonicParsing="false" onAction="#confirmButton_OnAction" prefHeight="24.0" prefWidth="50.0" text="Log In" />
           </children>
         </HBox>
         <ImageView fitHeight="102.5" fitWidth="136.6666626095308" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" />

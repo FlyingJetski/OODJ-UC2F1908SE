@@ -8,9 +8,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="/view/View.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewController">
    <children>
-      <AnchorPane fx:id="catalogueView" layoutX="135.0" layoutY="24.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <AnchorPane fx:id="productView" layoutX="125.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -260,5 +259,76 @@
             </ScrollPane>
          </children>
       </AnchorPane>
+      <AnchorPane fx:id="catalogueView" layoutX="135.0" layoutY="24.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <content>
+                  <HBox alignment="TOP_CENTER" prefHeight="500.0" prefWidth="298.0">
+                     <children>
+                        <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="125.0" spacing="10.0">
+                           <children>
+                              <Label prefHeight="25.0" text="Name:" />
+                              <FlowPane alignment="TOP_RIGHT" prefHeight="115.0" prefWidth="78.0">
+                                 <children>
+                                    <Label text="Selected Products:" />
+                                 </children>
+                              </FlowPane>
+                              <Label prefHeight="25.0" text="Starting Date:" />
+                              <Label prefHeight="25.0" text="Ending Date:" />
+                              <Label prefHeight="25.0" text="Description:" />
+                           </children>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="175.0" spacing="10.0">
+                           <children>
+                              <TextField fx:id="viewCatalogueName" disable="true">
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TableView fx:id="viewCatalogueSelectedProducts" disable="true" prefHeight="115.0" prefWidth="100.0">
+                                 <columns>
+                                    <TableColumn fx:id="viewCatalogueSelectedProductsNameTableColumn" prefWidth="97.0" text="Name" />
+                                    <TableColumn fx:id="viewCatalogueSelectedProductsDiscountTableColumn" prefWidth="53.0" text="Disc" />
+                                 </columns>
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" />
+                                 </VBox.margin>
+                              </TableView>
+                              <DatePicker fx:id="viewCatalogueStartingDate" disable="true">
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" />
+                                 </VBox.margin>
+                              </DatePicker>
+                              <DatePicker fx:id="viewCatalogueEndingDate" disable="true">
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" />
+                                 </VBox.margin>
+                              </DatePicker>
+                              <TextArea fx:id="viewCatalogueDescription" disable="true" prefHeight="100.0" prefWidth="200.0">
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" />
+                                 </VBox.margin>
+                              </TextArea>
+                           </children>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </content>
+               <padding>
+                  <Insets top="20.0" />
+               </padding>
+            </ScrollPane>
+         </children></AnchorPane>
+      <Pagination fx:id="productViewPagination" maxPageIndicatorCount="2" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Pagination fx:id="catalogueViewPagination" maxPageIndicatorCount="2" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <AnchorPane fx:id="imageBackgroundPane" prefHeight="200.0" prefWidth="200.0" styleClass="imageBackground" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <ImageView fx:id="productImageView" fitHeight="550.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <ImageView fx:id="catalogueImageView" fitHeight="450.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
    </children>
 </AnchorPane>

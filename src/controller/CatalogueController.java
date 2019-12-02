@@ -23,8 +23,16 @@ import model.objects.*;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.rendering.ImageType;
+import org.apache.pdfbox.rendering.PDFRenderer;
+import org.apache.pdfbox.util.Matrix;
 
+import javax.imageio.ImageIO;
+import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -34,6 +42,8 @@ import java.util.ResourceBundle;
 import java.util.function.Predicate;
 
 public class CatalogueController implements Initializable {
+    private static Catalogue selectedCatalogueToView = null;
+
     @FXML AnchorPane addCataloguePane;
     @FXML AnchorPane editCataloguePane;
     @FXML ComboBox searchComboBox;
@@ -118,6 +128,27 @@ public class CatalogueController implements Initializable {
         endingDateTableColumn.setCellValueFactory(new PropertyValueFactory<>("dateEnd"));
         descriptionTableColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
         catalogueTableView.setItems(Catalogue.catalogues);
+        catalogueTableView.setRowFactory( tableView -> {
+            TableRow<Catalogue> tableRow = new TableRow<>();
+            tableRow.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!tableRow.isEmpty()) ) {
+                    Catalogue selectedCatalogue = tableRow.getItem();
+                    selectedCatalogueToView = selectedCatalogue;
+                    Stage viewStage = new Stage();
+                    try {
+                        viewStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/View.fxml"))));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    viewStage.setWidth(400);
+                    viewStage.setHeight(500);
+                    viewStage.setTitle("Catalogue View");
+                    viewStage.setResizable(false);
+                    viewStage.show();
+                }
+            });
+            return tableRow;
+        });
 
         // Disable view log button
         if (LoginController.getInstance().getClass() == Product_Manager.class) {
@@ -468,7 +499,7 @@ public class CatalogueController implements Initializable {
                 Catalogue.catalogues.remove(selectedCatalogue);
             }
 
-            Log.productLogs.add(new Log("Deleted catalogue: " + selectedCatalogue.getName()));
+            Log.catalogueLogs.add(new Log("Deleted catalogue: " + selectedCatalogue.getName()));
             refreshTableView();
         } catch (NullPointerException exception) {
             Dialog dialog = new Dialog();
@@ -479,49 +510,173 @@ public class CatalogueController implements Initializable {
     }
 
     public void exportCatalogueButton_OnAction (Event event) throws IOException {
-        Catalogue selectedCatalogue = catalogueTableView.getSelectionModel().getSelectedItem();
-        PDDocument document = new PDDocument();
-        PDPage page = new PDPage();
-        PDPageContentStream content = new PDPageContentStream(document, page);
+        try {
+            Catalogue selectedCatalogue = catalogueTableView.getSelectionModel().getSelectedItem();
+            if (selectedCatalogue == null) {
+                throw new NullPointerException();
+            }
 
-        content.beginText();
-        content.setFont(PDType1Font.COURIER, 18);
-        content.setLeading(14.5f);
-        content.newLineAtOffset(25, 700);
+            ButtonType pdfButton = new ButtonType("PDF (document)", ButtonBar.ButtonData.OK_DONE);
+            ButtonType pngButton = new ButtonType("PNG (image)", ButtonBar.ButtonData.CANCEL_CLOSE);
+            Alert confirmationPopup = new Alert(Alert.AlertType.INFORMATION, "What format would you like to export the catalogue to?",
+                    pdfButton, pngButton);
+            confirmationPopup.showAndWait();
 
-        content.showText(selectedCatalogue.getName());
-        content.newLine();
+            if (confirmationPopup.getResult() == pdfButton) {
+                PDDocument document = new PDDocument();
+                PDPage page = new PDPage();
+                PDPageContentStream content = new PDPageContentStream(document, page);
+                PDFont font = PDType1Font.HELVETICA;
+                PDFont fontBold = PDType1Font.HELVETICA_BOLD;
+                int titleFont = 48;
+                int contentFont = 32;
+                int descriptionFont = 20;
 
-        content.showText(selectedCatalogue.getDescription());
-        content.newLine();
+                content.beginText();
+                content.setLeading(50.0f);
+                content.newLineAtOffset(25, 700);
 
-        int productsIndexCount = 0;
-        for (Integer productId: selectedCatalogue.getProductsId()) {
-            Predicate<Product> productPredicate = product -> product.getProductId() == productId;
-            String productName = Product.products.filtered(productPredicate).get(0).getName();
-            content.showText(productName + selectedCatalogue.getProductsDiscount().get(productsIndexCount) + "% OFF");
-            content.newLine();
-            productsIndexCount++;
+                content.setFont(font, titleFont);
+                String titleString = selectedCatalogue.getName();
+                content.showText(titleString);
+                content.newLine();
+
+                content.setFont(font, descriptionFont);
+                String descriptionString = selectedCatalogue.getDescription();
+                content.showText(descriptionString);
+                content.newLine();
+                content.newLine();
+
+                content.setFont(font, contentFont);
+                int productsIndexCount = 0;
+                for (Integer productId: selectedCatalogue.getProductsId()) {
+                    Predicate<Product> productPredicate = product -> product.getProductId() == productId;
+                    String productName = Product.products.filtered(productPredicate).get(0).getName();
+
+                    String contentString = productName + " - " +
+                            selectedCatalogue.getProductsDiscount().get(productsIndexCount) + "% OFF";
+                    content.showText(contentString);
+                    content.newLine();
+                    productsIndexCount++;
+                }
+                content.newLine();
+
+                content.setFont(font, contentFont);
+                String contentString = "ONLY FROM";
+                content.showText(contentString);
+                content.newLine();
+
+                content.setFont(fontBold, titleFont);
+                titleString = selectedCatalogue.getDateStart().toString();
+                content.showText(titleString);
+                content.newLine();
+
+                content.setFont(font, contentFont);
+                contentString = "UNTIL";
+                content.showText(contentString);
+                content.newLine();
+
+                content.setFont(fontBold, titleFont);
+                titleString = selectedCatalogue.getDateEnd().toString() + "!!";
+                content.showText(titleString);
+                content.newLine();
+
+                content.endText();
+                content.close();
+
+                document.addPage(page);
+
+                Stage mainStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                final DirectoryChooser directoryChooser = new DirectoryChooser();
+                File exportDirectory = directoryChooser.showDialog(mainStage);
+
+                document.save(exportDirectory + "/" + selectedCatalogue.getName() + ".pdf");
+                document.close();
+                Log.catalogueLogs.add(new Log("Exported catalogue as pdf: " + selectedCatalogue.getName()));
+            } else if (confirmationPopup.getResult() == pngButton) {
+                PDDocument document = new PDDocument();
+                PDPage page = new PDPage();
+                PDPageContentStream content = new PDPageContentStream(document, page);
+                PDFont font = PDType1Font.HELVETICA;
+                PDFont fontBold = PDType1Font.HELVETICA_BOLD;
+                int titleFont = 48;
+                int contentFont = 32;
+                int descriptionFont = 20;
+
+                content.beginText();
+                content.setLeading(50.0f);
+                content.newLineAtOffset(25, 700);
+
+                content.setFont(font, titleFont);
+                String titleString = selectedCatalogue.getName();
+                content.showText(titleString);
+                content.newLine();
+
+                content.setFont(font, descriptionFont);
+                String descriptionString = selectedCatalogue.getDescription();
+                content.showText(descriptionString);
+                content.newLine();
+                content.newLine();
+
+                content.setFont(font, contentFont);
+                int productsIndexCount = 0;
+                for (Integer productId: selectedCatalogue.getProductsId()) {
+                    Predicate<Product> productPredicate = product -> product.getProductId() == productId;
+                    String productName = Product.products.filtered(productPredicate).get(0).getName();
+
+                    String contentString = productName + " - " +
+                            selectedCatalogue.getProductsDiscount().get(productsIndexCount) + "% OFF";
+                    content.showText(contentString);
+                    content.newLine();
+                    productsIndexCount++;
+                }
+                content.newLine();
+
+                content.setFont(font, contentFont);
+                String contentString = "ONLY FROM";
+                content.showText(contentString);
+                content.newLine();
+
+                content.setFont(fontBold, titleFont);
+                titleString = selectedCatalogue.getDateStart().toString();
+                content.showText(titleString);
+                content.newLine();
+
+                content.setFont(font, contentFont);
+                contentString = "UNTIL";
+                content.showText(contentString);
+                content.newLine();
+
+                content.setFont(fontBold, titleFont);
+                titleString = selectedCatalogue.getDateEnd().toString() + "!!";
+                content.showText(titleString);
+                content.newLine();
+
+                content.endText();
+                content.close();
+
+                document.addPage(page);
+
+                Stage mainStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                final DirectoryChooser directoryChooser = new DirectoryChooser();
+                File exportDirectory = directoryChooser.showDialog(mainStage);
+
+                PDFRenderer pdfRenderer = new PDFRenderer(document);
+                int pageIndex = 0;
+                int dpi = 300;
+
+                BufferedImage bufferedImage = pdfRenderer.renderImageWithDPI(pageIndex, dpi, ImageType.RGB);
+                File outputFile = new File(exportDirectory + "/" + selectedCatalogue.getName() + ".png");
+                ImageIO.write(bufferedImage, "png", outputFile);
+                document.close();
+                Log.catalogueLogs.add(new Log("Exported catalogue as png: " + selectedCatalogue.getName()));
+            }
+        } catch (NullPointerException exception) {
+            Dialog dialog = new Dialog();
+            dialog.setContentText("Catalogue must be selected.");
+            dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+            dialog.show();
         }
-
-        content.showText("ONLY FROM");
-        content.newLine();
-        content.showText(selectedCatalogue.getDateStart().toString());
-        content.newLine();
-        content.showText("UNTIL");
-        content.newLine();
-        content.showText(selectedCatalogue.getDateEnd().toString() + "!!");
-        content.newLine();
-        content.endText();
-        content.close();
-
-        document.addPage(page);
-
-        Stage mainStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        final DirectoryChooser directoryChooser = new DirectoryChooser();
-        File exportDirectory = directoryChooser.showDialog(mainStage);
-
-        document.save(exportDirectory + "/" + selectedCatalogue.getName() + ".pdf");
     }
 
     public void viewLogButton_OnAction (Event event) throws IOException {
@@ -569,5 +724,9 @@ public class CatalogueController implements Initializable {
                 break;
         }
         catalogueTableView.setItems(Catalogue.catalogues.filtered(searchComboBoxValue));
+    }
+
+    public static Catalogue getSelectedCatalogueToView() {
+        return selectedCatalogueToView;
     }
 }
