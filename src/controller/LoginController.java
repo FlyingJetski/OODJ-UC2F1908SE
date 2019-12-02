@@ -4,12 +4,14 @@ import com.sun.media.jfxmediaimpl.platform.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import model.Authentication;
 import model.IOWriterReader;
@@ -18,8 +20,10 @@ import model.objects.Log;
 import model.objects.User;
 
 import java.io.IOException;
+import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.ResourceBundle;
 
 public class LoginController {
     @FXML TextField usernameText;

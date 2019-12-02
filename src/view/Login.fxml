@@ -9,7 +9,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<StackPane id="StackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="284.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
+<StackPane id="StackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="284.0" prefWidth="300.0" stylesheets="/view/Login.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
   <children>
     <GridPane fx:id="gridPane" alignment="CENTER" gridLinesVisible="false" maxHeight="284.0" maxWidth="300.0" prefHeight="284.0" prefWidth="300.0">
       <children>
@@ -27,7 +27,7 @@
             <Button fx:id="confirmButton" defaultButton="true" mnemonicParsing="false" onAction="#confirmButton_OnAction" prefHeight="24.0" prefWidth="50.0" text="Log In" />
           </children>
         </HBox>
-        <ImageView fitHeight="102.5" fitWidth="136.6666626095308" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+        <ImageView id="loginIcon" fx:id="loginIcon" fitHeight="102.5" fitWidth="136.6666626095308" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
         <Label text="Product Catalogue System" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
           <font>
             <Font name="System Bold" size="18.0" />
